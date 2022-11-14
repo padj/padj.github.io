@@ -1,3 +1,7 @@
 theme: jekyll-theme-minimal
 title: Thomas E. Padgett
 description: Who knows?
+
+layout: page
+title: "CV"
+permalink: /CV
