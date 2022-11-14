@@ -1,0 +1,14 @@
+Package: padj.github.io
+Title: Thomas E. Padgett
+Version: 1.0.0
+Authors@R: 
+    person(given = "Thomas",
+           family = "Padgett",
+           role = c("aut", "cre"),
+           email = "thomas.e.padgett@outlook.com")
+Description: Personal pkgdown website
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+URL: https://padj.github.io/
