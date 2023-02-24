@@ -11,11 +11,9 @@ redirect_from:
 
 Work experience
 ======
-* Sept 2022 - present: Principal Data Scientist
-  * HEOR
+* Sept 2022 - present: Principal Data Scientist; HEOR
 
-* May 2021 - Sept 2022: Senior Data Scientist
-  * HEOR
+* May 2021 - Sept 2022: Senior Data Scientist; HEOR
   
 Education
 ======
