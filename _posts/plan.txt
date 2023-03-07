@@ -1,0 +1,54 @@
+This is notes on the future plan of work for blog posts:
+
+1. Health Economic Modelling Series
+1.1. Introduction to Health Economics
+How do you quantify value & how do you justify costs?
+Introduce ICER, CE plane, etc.
+
+1.2. Decision Tree in R
+
+1.3. Partitioned Survival Model in R
+
+1.4. Cohort State Transition Model in R
+
+
+2. Public Health Modelling Series
+2.1. The SIR Model
+	Introduction to compartment models
+	How to go from conceptualisation to ODE system
+	Rates, R_0, R_E, FoI
+
+2.2. Building on the SIR Model
+	Adding compartments, SEIR, SEIRD
+	Stratifying the population (risk, age)
+	Open/Closed populations, background deaths
+
+2.3. Calibrating Compartment Models
+
+2.4. Full Example
+	Include treatment
+	Include calibration
+	Include decision tree for coest effectiveness of treatment
+
+
+3. Survival Analysis Series
+3.1. What is Survival Analysis?
+	Censoring, types of censoring
+	Survival function, hazard function
+	Kaplan-Meier estimator
+	Nelson-Altschuler estimator
+	Median/Mean survival
+
+3.2. Proportional Hazards Models
+	h1(t) = Psi*h0(t)
+
+3.3. Accelerated Failure Time Models
+
+3.4. Fully Parametric Survival Analysis for Health Economic Evaluations
+
+
+4. ITC series?
+
+5. Machine Learning series?
+
+ 
