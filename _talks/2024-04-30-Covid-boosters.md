@@ -8,7 +8,7 @@ date: 2024-04-30
 location: "Barcelona, Spain"
 ---
 
-This work aligns with our paper on assessing the impact of Covid boosters, which can be found [here](padj.github.io/publication/2024-04-25-covid-booster-03).
+This work aligns with our paper on assessing the impact of Covid boosters, which can be found [here](/publication/2024-04-25-covid-booster-03).
 
 [Abstract here](Pending)
 
