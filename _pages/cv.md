@@ -11,8 +11,8 @@ redirect_from:
 
 Work experience
 ======
-* Sept 2022 - present: Principal Data Scientist; HEOR
-
+* Apr 2024 - present: Principal Operational Researcher; HEOR
+* Sept 2022 - Apr 2024: Principal Data Scientist; HEOR
 * May 2021 - Sept 2022: Senior Data Scientist; HEOR
   
 Education
@@ -22,15 +22,13 @@ Education
 
 Skills
 ======
-* R & Python
-* Machine learning
-* Real-world evidence
-* Simulation & modelling
-* R Shiny app development
-* Infectious disease modelling
-* Cost-effectiveness modelling
-* Early drug pricing & revenue forecasting
+* Numerical modelling; inc. health economic modelling, simulation, DES, etc. 
+* System dynamics (i.e. dynamic prevalence prediction)
+* Machine learning (i.e. risk prediction)
+* Experience with real-world evidence/data (RWE/RWD)
+* Early drug pricing, revenue forecasting, launch sequence optimisation
 * Survival analysis
+* R Shiny app development
 
 Publications
 ======
