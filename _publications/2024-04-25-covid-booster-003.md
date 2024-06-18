@@ -1,7 +1,7 @@
 ---
 title: "Modelling COVID-19 Vaccination in the UK: Impact of the Autumn 2022 and Spring 2023 Booster Campaigns"
 collection: publications
-permalink: /publication/2024-04-25-covid-booster-03
+permalink: /publication/2024-04-25-covid-booster-003
 excerpt: 
 date: 2024-04-25
 venue: 'Infectious Diseases and Therapy'

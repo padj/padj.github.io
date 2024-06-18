@@ -2,13 +2,13 @@
 title: "Modelling COVID-19 vaccination in the UK - Impact of the Autumn 2022 and Spring 2023 booster campaigns"
 collection: talks
 type: "Talk"
-permalink: /talks/2024-04-30-Covid-boosters
+permalink: /talks/2024-04-30-Covid-boosters-001
 venue: "34th European Congress for Clinical Microbiology and Infectious Diseases"
 date: 2024-04-30
 location: "Barcelona, Spain"
 ---
 
-This work aligns with our paper on assessing the impact of Covid boosters, which can be found [here](/publication/2024-04-25-covid-booster-03).
+This work aligns with our paper on assessing the impact of Covid boosters, which can be found [here](/publication/2024-04-25-covid-booster-003).
 
 [Abstract here](Pending)
 
