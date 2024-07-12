@@ -51,8 +51,3 @@ ggplot(data = dat, aes(x = x,
 
 
 
-
-
-# Plot the Ackley function in 2D as a heatmap? Easier to seed individuals. 
-
-
