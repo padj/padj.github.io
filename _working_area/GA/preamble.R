@@ -1,9 +1,9 @@
 
-install.packages('smoof')
-install.packages('ggplot2')
+renv::restore()
+
 
 library(smoof)
 library(ggplot2)
-
+library(R.utils)
 
 
