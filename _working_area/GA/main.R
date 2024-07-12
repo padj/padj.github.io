@@ -102,19 +102,42 @@ reproduce <- function(current_pop, alpha = 0.66){
 }
 
 
-mutate <- function(current_pop){
-  
-  # filter to newest born
+mutate <- function(current_pop, pop_size, mut_chance = 0.1){
   
   # roll dice to determine whether each new born mutates
+  current_pop$mutate <- c(rep(0,pop_size),
+                          sample(x = c(0,1), 
+                                 size = nrow(current_pop[current_pop$gen == max(current_pop$gen),]), 
+                                 replace = T, 
+                                 prob = c(1-mut_chance, mut_chance)))
   
-  # for those that mutate, pick either x or y to mutate
+  if (any(current_pop$mutate)){
+    # for those that mutate, pick either x or y to mutate
+    # 0 = x, 1 = y
+    change_x <- c(rep(0,pop_size),
+                  sample(x = c(0,1), 
+                       size = sum(current_pop$mutate == 1), 
+                       replace = T))
+    
+    change_y <- -1*(change_x - 1)
+    change_y[1:pop_size] <- 0
+    
+    # Determine the amount each changes by. 
+    # normal distribution mean 0, std = 0.2
+    change_pc <- rnorm(n = length(change_x), mean = 0, sd = 0.1)
+    
+    # Apply changes to x and y
+    current_pop[as.logical(change_x),]$x <- (current_pop[as.logical(change_x),]$x
+                                     * (1 + change_pc[as.logical(change_x)]))
+    
+    current_pop[as.logical(change_y),]$y <- (current_pop[as.logical(change_y),]$y
+                                     * (1 + change_pc[as.logical(change_y)]))
+    
+    # recalculate fitness
+    current_pop <- calculateFitness(current_pop)
+  }
   
-  # mutate chosen param by normal distribution mean 0, std = 0.1
-  
-  # update pop df and recalculate fitness
-  
-  # return current pop with mutated col to identify those mutated
+  return(current_pop)
   
 }
 
@@ -231,7 +254,9 @@ ggplot() +
        colour = 'Generation')
 
 # Highlight Mutation
-current_pop <- mutate(current_pop)
+current_pop <- mutate(current_pop = current_pop, 
+                      pop_size = pop_size,
+                      mut_chance = 0.1)
 
 
 # Highlight elitism
