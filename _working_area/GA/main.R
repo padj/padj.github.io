@@ -39,8 +39,14 @@ createPop <- function(pop_size, min_range, max_range){
   
   out <- data.frame('gen' = 1, 
                     'id' = seq(1:20),
+                    'label' = 0,
                     'x' = runif(20, min_range, max_range),
-                    'y' = runif(20, min_range, max_range))
+                    'y' = runif(20, min_range, max_range),
+                    'fit' = 0,
+                    'selected' = 0,
+                    'mutated' = 0,
+                    'elite' = 0,
+                    'exterminated' = 0)
   return(out)
 } 
 
@@ -52,7 +58,7 @@ calculateFitness <- function(pop){
 }
 
 selectBreeders <- function(pop, pop_size, breed_prop){
-  # roulette wheel
+  # Fitness weighted selection
   
   #how many?
   breed_num <- 2*round(pop_size*breed_prop/2,0)
@@ -61,16 +67,16 @@ selectBreeders <- function(pop, pop_size, breed_prop){
   
   selected <- sample(pop$id, size = breed_num, replace = F, prob = weight)
   
-  breeders <- rep(0,pop_size)
-  breeders[selected] <- 1
+  pop$selected[pop$id %in% selected] <- 1
+  pop$label[pop$id %in% selected] <- 1
   
-  return(breeders)
+  return(pop)
 }
 
 reproduce <- function(current_pop, alpha = 0.66){
   
   # filter to breeders
-  pop <- current_pop[current_pop$breeder == 1,]
+  pop <- current_pop[current_pop$selected == 1,]
   
   # randomly order parents
   parent_list <- sample(pop$id, size = nrow(pop), replace = F) 
@@ -87,12 +93,16 @@ reproduce <- function(current_pop, alpha = 0.66){
   new_y2 <- alpha * parents2$y + (1 - alpha) * parents1$y
   
   # Make df of newborns
-  new_born <- data.frame('gen' = current_pop$gen[1]+1,
+  new_born <- data.frame('gen' = max(current_pop$gen)+1,
                          'id' = seq(max(current_pop$id)+1, max(current_pop$id)+length(parent_list)),
+                         'label' = 2,
                          'x' = c(new_x1, new_x2),
                          'y' = c(new_y1, new_y2),
                          'fit' = 0,
-                         'breeder' = 0)
+                         'selected' = 0,
+                         'mutated' = 0,
+                         'elite' = 0,
+                         'exterminated' = 0)
   
   # add to current population
   pop <- rbind(current_pop, new_born)
@@ -105,18 +115,21 @@ reproduce <- function(current_pop, alpha = 0.66){
 mutate <- function(current_pop, pop_size, mut_chance = 0.1){
   
   # roll dice to determine whether each new born mutates
-  current_pop$mutate <- c(rep(0,pop_size),
+  current_pop$mutated <- c(rep(0,pop_size),
                           sample(x = c(0,1), 
                                  size = nrow(current_pop[current_pop$gen == max(current_pop$gen),]), 
                                  replace = T, 
                                  prob = c(1-mut_chance, mut_chance)))
   
-  if (any(current_pop$mutate)){
+  if (any(current_pop$mutated)){
+    
+    current_pop$label[current_pop$mutated == 1] <- 3
+    
     # for those that mutate, pick either x or y to mutate
     # 0 = x, 1 = y
     change_x <- c(rep(0,pop_size),
                   sample(x = c(0,1), 
-                       size = sum(current_pop$mutate == 1), 
+                       size = sum(current_pop$mutated == 1), 
                        replace = T))
     
     change_y <- -1*(change_x - 1)
@@ -142,26 +155,34 @@ mutate <- function(current_pop, pop_size, mut_chance = 0.1){
 }
 
 elitism <- function(current_pop, elite = 0.1){
-  
-  # order current pop id by fitness
+
+  # order current pop id by fitness (lower is better)
+  sorted <- sort(current_pop$fit, decreasing = F, index.return = T)
   
   # identify top % define by elite
+  elite_num <- round(pop_size*elite,0)
   
-  # Add new col to current_pop to identify elites
+  # top elites
+  current_pop$elite[sorted$ix[1:elite_num]] <- 1
+  current_pop$label[sorted$ix[1:elite_num]] <- 4
   
-  # return current_pop
-
+  return(current_pop)
 }
 
 
-exterminate <- function(current_pop){
-  
+exterminate <- function(current_pop, pop_size){
+
   # Order current pop id by fitness, removing the elite
+  sorted <- sort(current_pop$fit, decreasing = T, index.return = T)
+  
+  # how many?
+  deaths_needed <- nrow(current_pop) - pop_size
   
   # Remove least fit until the population = pop_size (inc. elites)
+  current_pop$exterminated[sorted$ix[1:deaths_needed]] <- 1
+  current_pop$label[sorted$ix[1:deaths_needed]] <- 5
   
-  # Return current_pop
-  
+  return(current_pop)
 }
 
 
@@ -177,100 +198,104 @@ exterminate <- function(current_pop){
 # GA inputs
 pop_size <- 20
 breed_prop <- 0.3
+maxIt <- 30
 
 # Initial population
-pop <- createPop(pop_size, min_range, max_range)
-
-# Calculate fitness
-pop <- calculateFitness(pop)
-
-# Split into total pop and current pop
-total_pop <- pop
-current_pop <- pop
-rm(pop)
-
-# Plot initial population on heatmap
-ggplot() +
-  geom_contour_filled(data = dat, 
-                      aes(x = x,
-                          y = y,
-                          z = z),
-                      bins = 20) +
-  geom_point(data = current_pop,
-             aes(x = x, 
-                 y = y),
-             shape = 2, 
-             size = 5,
-             stroke = 2) + 
-
-  labs(title = '2D Ackley function',
-       fill = 'Z')
+current_pop <- createPop(pop_size, min_range, max_range)
 
 
-# Highlight selected to breed
-current_pop$breeder <- selectBreeders(pop = current_pop, 
-                             pop_size = pop_size, 
-                             breed_prop = breed_prop)
-
-# Plot initial population on heatmap, with breeders highlighted
-ggplot() +
-  geom_contour_filled(data = dat, 
-                      aes(x = x,
-                          y = y,
-                          z = z),
-                      bins = 20) +
-  geom_point(data = current_pop,
-             aes(x = x, 
-                 y = y,
-                 colour = as.factor(breeder)),
-             shape = 2, 
-             size = 5,
-             stroke = 2) + 
+for (i in 1:maxIt){
+  # Calculate fitness
+  current_pop <- calculateFitness(current_pop)
   
-  labs(title = '2D Ackley function',
-       fill = 'Z',
-       colour = 'Selected')
+  
+  # Highlight selected to breed
+  current_pop <- selectBreeders(pop = current_pop, 
+                                pop_size = pop_size, 
+                                breed_prop = breed_prop)
+  
+  # Highlight reproduction
+  current_pop <- reproduce(current_pop = current_pop)
+  
+  # Highlight Mutation
+  current_pop <- mutate(current_pop = current_pop, 
+                        pop_size = pop_size,
+                        mut_chance = 0.2)
+  
+  # Highlight elitism
+  current_pop <- elitism(current_pop)
+  
+  # Highlight extermination
+  current_pop <- exterminate(current_pop, pop_size)
 
-# Highlight reproduction
-current_pop <- reproduce(current_pop = current_pop)
+  # New population
+  # The current population minus those tagged for extermination, become the new 
+  # population. Some individuals are retained from previous generation(s), some 
+  # are newly added.
+  
+  new_pop <- current_pop[current_pop$exterminated != 1,]
+  new_pop$label <- 0
+  new_pop$selected <- 0
+  new_pop$mutated <- 0
+  new_pop$elite <- 0
+  
+  if (i == 1){ #First iteration
+    total_pop <- current_pop
+  } else{
+    # rbind the current population to the total population
+    total_pop <- rbind(total_pop, 
+                       current_pop[!current_pop$id %in% total_pop$id,])
+    
+  }
+  
+  current_pop <- new_pop
+  
+}
 
-# Plot current population on heatmap, with new born highlighted
+
 ggplot() +
   geom_contour_filled(data = dat, 
                       aes(x = x,
                           y = y,
                           z = z),
                       bins = 20) +
-  geom_point(data = current_pop,
-             aes(x = x, 
-                 y = y,
-                 colour = as.factor(gen)),
-             shape = 2, 
+  geom_point(data = total_pop[total_pop$gen == 1,], 
              size = 5,
-             stroke = 2) + 
+             shape = 3,
+             stroke = 2,   
+             aes(x = x,
+                 y = y,
+                 colour = as.factor(gen))) +
+  
+  geom_point(data = total_pop[total_pop$gen == 5,], 
+             size = 5,
+             shape = 3,
+             stroke = 2, 
+             aes(x = x,
+                 y = y,
+                 colour = as.factor(gen))) +
+  
+  geom_point(data = total_pop[total_pop$gen == 10,], 
+             size = 5,
+             shape = 3,
+             stroke = 2, 
+             aes(x = x,
+                 y = y,
+                 colour = as.factor(gen))) +
+
+    geom_point(data = total_pop[total_pop$gen == maxIt,], 
+             size = 5,
+             shape = 3,
+             stroke = 2, 
+             aes(x = x,
+                 y = y,
+                 colour = as.factor(gen))) +
   
   labs(title = '2D Ackley function',
        fill = 'Z',
        colour = 'Generation')
 
-# Highlight Mutation
-current_pop <- mutate(current_pop = current_pop, 
-                      pop_size = pop_size,
-                      mut_chance = 0.1)
 
 
-# Highlight elitism
-current_pop <- elitism(current_pop)
-
-
-# Highlight extermination
-current_pop <- exterminate(current_pop)
-
-
-# New population
-# The current population is now the new population. 
-# Some individuals are retained from previous generation(s), some are newly added.
-# Define all as being from generation n+1
-# rbind the current population to the total population
 
 
