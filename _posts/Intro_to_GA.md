@@ -10,8 +10,10 @@ tags:
 
 # Genetic Algorithms
 
-## Definitions
-Genetic algorithms (GA) are a form of evolutionary heuristic optimisation. They work by mimicking the nature's survival of the fittest; that is, rewarding the fittest individuals with reproductive rights and killing off underperformers. The general process for a GA is as follows:
+## Definition
+Genetic algorithms (GA) are a form of evolutionary heuristic optimisation[link]. As such, they can be used to optimise any function, including those that are not continuously differentiable. Solutions to the function being optimised are called individuals and a collection of individuals is called a population. GAs work by mimicking nature's survival of the fittest; that is, rewarding the fittest individuals with reproductive rights and killing off individuals that are underperforming, where 'fitness' is determined based on the value of the function for the given solution. This causes the population to become fitter with each passing generation. 
+
+A genetic algorithm has the following general structure:
 
 - initial population
 - assess fitness
@@ -35,6 +37,7 @@ Here we use the two dimensional Ackley function to demonstrate a simple genetic 
 
 ## Demonstrate a single iteration
 1. Create the initial population
+Params: population size, bounds
 Plot the function with overlain initial population
 
 2. Select those that are allowed to reproduce
