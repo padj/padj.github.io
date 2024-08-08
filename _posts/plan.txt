@@ -51,4 +51,13 @@ Introduce ICER, CE plane, etc.
 
 5. Machine Learning series?
 
+
+OTHER IDEAS
+Age structure prediction
+Desire paths
+TSP (GA)
+
+
+
+
  
