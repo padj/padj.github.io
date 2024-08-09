@@ -3,4 +3,5 @@ _site/
 _talks/.Rhistory
 .Rproj.user
 _working_area/GA/.Rhistory
-_working_area/GA/.Rhistory
+_working_area/GA/renv/library/
+_working_area/GA/.RProj.user/
