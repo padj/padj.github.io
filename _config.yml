@@ -194,10 +194,10 @@ collections:
 
 # Defaults
 defaults:
-  # _posts
+  # _blog
   - scope:
       path: ""
-      type: posts
+      type: blog
     values:
       layout: single
       author_profile: true
@@ -239,10 +239,10 @@ defaults:
       author_profile: true
       share: true
       comment: true
-  # _talks
+  # _conferences
   - scope:
       path: ""
-      type: talks
+      type: conferences
     values:
       layout: talk
       author_profile: true
@@ -258,7 +258,7 @@ sass:
 permalink: /:categories/:title/
 # paginate: 5 # amount of posts to show
 # paginate_path: /page:num/
-timezone: America/Los_Angeles # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone: Europe/London # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 
 # Plugins
