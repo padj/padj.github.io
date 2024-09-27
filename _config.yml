@@ -245,9 +245,9 @@ defaults:
   # _conferences
   - scope:
       path: ""
-      type: talk
+      type: conferences
     values:
-      layout: talk
+      layout: single
       author_profile: true
       share: true
     # _talks
