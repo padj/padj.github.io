@@ -3,11 +3,11 @@ main:
   - title: "Publications"
     url: /publications/
 
-  - title: "Conferences"
-    url: /conferences/    
+  - title: "Talks"
+    url: /talks/    
         
-  - title: "Blog"
-    url: /blog/
+  - title: "Blog Posts"
+    url: /year-archive/
     
   - title: "CV"
     url: /cv/
