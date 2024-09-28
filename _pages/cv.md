@@ -14,6 +14,7 @@ Work experience
 * Apr 2024 - present: Principal Operational Researcher; HEOR
 * Sept 2022 - Apr 2024: Principal Data Scientist; HEOR
 * May 2021 - Sept 2022: Senior Data Scientist; HEOR
+* March 2020 - May 2021: Assistant Lecturer in Aerospace Engineering; Coventry University
   
 Education
 ======
@@ -22,12 +23,13 @@ Education
 
 Skills
 ======
+* Consulting and problem solving
 * Numerical modelling; inc. health economic modelling, simulation, DES, etc. 
 * System dynamics (i.e. dynamic prevalence prediction)
 * Machine learning (i.e. risk prediction)
-* Experience with real-world evidence/data (RWE/RWD)
+* Experience with real-world data (NHANES, CPRD, HES)
 * Early drug pricing, revenue forecasting, launch sequence optimisation
-* Survival analysis
+* Fully- and semi-parametric survival analysis
 * R Shiny app development
 
 Publications
