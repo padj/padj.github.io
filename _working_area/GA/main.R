@@ -38,10 +38,10 @@ ggplot(data = dat, aes(x = x,
 createPop <- function(pop_size, min_range, max_range){
   
   out <- data.frame('gen' = 1, 
-                    'id' = seq(1:20),
+                    'id' = seq(1:pop_size),
                     'label' = 0,
-                    'x' = runif(20, min_range, max_range),
-                    'y' = runif(20, min_range, max_range),
+                    'x' = runif(pop_size, min_range, max_range),
+                    'y' = runif(pop_size, min_range, max_range),
                     'fit' = 0,
                     'selected' = 0,
                     'mutated' = 0,
@@ -196,15 +196,21 @@ exterminate <- function(current_pop, pop_size){
 # Demonstrate one iteration of GA on the Ackley function
 
 # GA inputs
-pop_size <- 20
-breed_prop <- 0.3
+pop_size <- 10
+breed_prop <- 0.2
 maxIt <- 30
 
 # Initial population
 current_pop <- createPop(pop_size, min_range, max_range)
 
+current_pop_history <- list()
 
 for (i in 1:maxIt){
+  
+  # Record the current pop
+  current_pop_history <- c(current_pop_history, 
+                           list(current_pop))
+  
   # Calculate fitness
   current_pop <- calculateFitness(current_pop)
   
@@ -252,6 +258,26 @@ for (i in 1:maxIt){
   
 }
 
+# First gen
+ggplot() +
+  geom_contour_filled(data = dat, 
+                      aes(x = x,
+                          y = y,
+                          z = z),
+                      bins = 20) +
+  geom_point(data = current_pop_history[[10]], 
+             size = 5,
+             shape = 3,
+             stroke = 2,   
+             aes(x = x,
+                 y = y)) +
+  labs(title = '2D Ackley function',
+       fill = 'Z')
+
+
+
+
+# All
 
 ggplot() +
   geom_contour_filled(data = dat, 
@@ -283,7 +309,7 @@ ggplot() +
                  y = y,
                  colour = as.factor(gen))) +
 
-    geom_point(data = total_pop[total_pop$gen == maxIt,], 
+  geom_point(data = total_pop[total_pop$gen == maxIt,], 
              size = 5,
              shape = 3,
              stroke = 2, 
@@ -295,6 +321,54 @@ ggplot() +
        fill = 'Z',
        colour = 'Generation')
 
+
+
+
+# Animation
+animation_ack <- dat
+animation_ack$t <- 1
+
+animation_dat <- current_pop_history[[1]]
+animation_dat$t <- 1
+
+for (i in 2:pop_size){
+  
+  current_pop_history[[i]]$t <- i
+  animation_dat <- rbind(animation_dat, 
+                         current_pop_history[[i]])
+  A <- dat
+  A$t <- i
+  animation_ack <- rbind(animation_ack, A)
+}
+
+anim <- ggplot() +
+  geom_contour_filled(data = dat, 
+                      aes(x = x,
+                          y = y,
+                          z = z),
+                      bins = 20) +
+  
+  geom_point(data = animation_dat, 
+             size = 5,
+             shape = 3,
+             stroke = 2,   
+             aes(x = x,
+                 y = y)) +
+  
+  labs(title = '2D Ackley function',
+       fill = 'Z') + 
+  
+  transition_time(t) +
+  
+  ease_aes("linear")
+
+anim_save(filename = "outputs/animation.gif", 
+          animation = anim,
+          duration = 10, 
+          fps = 20, 
+          width = 500, 
+          height = 500, 
+          renderer = gifski_renderer())
 
 
 

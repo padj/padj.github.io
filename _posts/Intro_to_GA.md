@@ -1,41 +1,36 @@
 ---
 title: 'Introduction to Genetic Algorithms'
-date: 2024-07-31
-permalink: /posts/2024/07/GA/
+date: 2024-10-02
+permalink: /posts/2024/10/GA/
 tags:
   - Optimisation
   - Heuristic
   - Genetic Algorithm
 ---
 
-# Genetic Algorithms
+### Definition
+Genetic algorithms (GA) are a form of evolutionary heuristic optimisation. This means they can be used to optimise any function, including those that are not continuously differentiable, but that they cannot ensure arrival at a global or local minima (or maxima). 
 
-## Definition
-Genetic algorithms (GA) are a form of evolutionary heuristic optimisation[link]. As such, they can be used to optimise any function, including those that are not continuously differentiable. Solutions to the function being optimised are called individuals and a collection of individuals is called a population. GAs work by mimicking nature's survival of the fittest; that is, rewarding the fittest individuals with reproductive rights and killing off individuals that are underperforming, where 'fitness' is determined based on the value of the function for the given solution. This causes the population to become fitter with each passing generation. 
+Solutions to the function being optimised are called individuals and a collection of individuals is called a population. GAs work by mimicking nature's survival of the fittest; that is, rewarding the fittest individuals with reproductive rights and killing off individuals that are under-performing, where 'fitness' is determined based on the value of the objective function using the given solution. This causes the population to become fitter with each passing generation. 
 
 A genetic algorithm has the following general structure:
 
-- initial population
-- assess fitness
-- select reproducers
-- create offspring
-- mutate
-- elitism
-- exterminate
-- repeat
+<p align="center">
+![]("assets\images\GA_schematic.png")
+</p>
 
-% Flow diagram %
+### Test function
+Here we use the two dimensional Ackley function to demonstrate a simple genetic algorithm. The Ackley function is defined mathematically as:
 
+$$ f(x,y) = -20 \mathrm{e}^{-0.2\sqrt{0.5(x^2+y^2)}} -\mathrm{e}^{0.5(\text{cos}(2 \pi x) + \text{cos}(2 \pi y))} + \mathrm{e} + 20 $$
 
-## Test function
-Here we use the two dimensional Ackley function to demonstrate a simple genetic algorithm. This is a function that features multiple local optima, designed to test optimisation approaches. 
+This is a function that features multiple local optima which tend toward the global optima at [0,0]; designed to test optimisation approaches.
 
-% Ackley function definition here %
+<p align="center">
+![]("assets\images\2D_Ack.png")
+</p>
 
-% Plot of the Ackley function %
-
-
-## Demonstrate a single iteration
+###  Demonstrate a single iteration
 1. Create the initial population
 Params: population size, bounds
 Plot the function with overlain initial population
