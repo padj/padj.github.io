@@ -137,7 +137,7 @@ mutate <- function(current_pop, pop_size, mut_chance = 0.1){
     
     # Determine the amount each changes by. 
     # normal distribution mean 0, std = 0.2
-    change_pc <- rnorm(n = length(change_x), mean = 0, sd = 0.1)
+    change_pc <- rnorm(n = length(change_x), mean = 0, sd = 0.5)
     
     # Apply changes to x and y
     current_pop[as.logical(change_x),]$x <- (current_pop[as.logical(change_x),]$x
@@ -198,7 +198,7 @@ exterminate <- function(current_pop, pop_size){
 # GA inputs
 pop_size <- 10
 breed_prop <- 0.2
-maxIt <- 30
+maxIt <- 100
 
 # Initial population
 current_pop <- createPop(pop_size, min_range, max_range)
@@ -251,10 +251,13 @@ for (i in 1:maxIt){
     # rbind the current population to the total population
     total_pop <- rbind(total_pop, 
                        current_pop[!current_pop$id %in% total_pop$id,])
-    
   }
   
   current_pop <- new_pop
+  
+  if (min(current_pop$fit) < 0.01){
+    exit
+  }
   
 }
 
@@ -331,7 +334,7 @@ animation_ack$t <- 1
 animation_dat <- current_pop_history[[1]]
 animation_dat$t <- 1
 
-for (i in 2:pop_size){
+for (i in 2:maxIt){
   
   current_pop_history[[i]]$t <- i
   animation_dat <- rbind(animation_dat, 
@@ -342,7 +345,7 @@ for (i in 2:pop_size){
 }
 
 anim <- ggplot() +
-  geom_contour_filled(data = dat, 
+  geom_contour_filled(data = animation_ack, 
                       aes(x = x,
                           y = y,
                           z = z),
@@ -358,13 +361,18 @@ anim <- ggplot() +
   labs(title = '2D Ackley function',
        fill = 'Z') + 
   
-  transition_time(t) +
+  #transition_time(t) + 
   
-  ease_aes("linear")
+  transition_states(t) + 
+  
+  ease_aes("linear") + 
+  
+  view_step(pause_length = 10, step_length = 0.001, nstep = 10)
+
 
 anim_save(filename = "outputs/animation.gif", 
           animation = anim,
-          duration = 10, 
+          duration = 25, 
           fps = 20, 
           width = 500, 
           height = 500, 
