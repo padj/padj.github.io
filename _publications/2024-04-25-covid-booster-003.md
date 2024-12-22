@@ -17,6 +17,8 @@ Abstract: This study aimed to estimate the effects of the 2022/23 COVID-19 boost
 
 Lay abstract: In this study, we looked at how giving COVID-19 booster shots in the UK during autumn 2022 and spring 2023 affected people's health and the healthcare system. We used a detailed computational model that considered different ages, levels of immunity, and health risks. The booster shots given in autumn 2022 and spring 2023 prevented 18,921 hospital stays and 1,463 deaths compared to if no boosters were given.
 
+This work was paid for by Pfizer.
+
 [Open access paper here](https://doi.org/10.1007/s40121-024-00965-8)
 
 Recommended citation: Mendes, D., Machira Krishnan, S., O’Brien, E. et al. Modelling COVID-19 Vaccination in the UK: Impact of the Autumn 2022 and Spring 2023 Booster Campaigns. Infect Dis Ther (2024). https://doi.org/10.1007/s40121-024-00965-8

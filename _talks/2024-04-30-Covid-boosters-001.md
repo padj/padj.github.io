@@ -10,6 +10,8 @@ location: "Barcelona, Spain"
 
 This work aligns with our paper on assessing the impact of Covid boosters, which can be found [here](/publication/2024-04-25-covid-booster-003).
 
+This work was paid for by Pfizer.
+
 [Abstract here](Pending)
 
 Recommended citation: Mendes, D., Manchira Krishnan, S., O’Brien, E. et al. (2024) Modelling COVID-19 Vaccination in the UK: Impact of the Autumn 2022 and Spring 2023 Booster Campaigns [Poster Abstract]. 34th European Congress for Clinical Microbiology and Infectious Diseases, Barcelona, Spain.
