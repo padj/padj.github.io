@@ -18,9 +18,9 @@ My research interests
 ======
 Professionally, I'm currently working on:
 * System dynamics models for understanding system-level disease burden
-* Machine learning using real world data, i.e. disease prediction or subpopulation discovery
-* The derivation of risk equations from clinical trial data
-* Financial forecasting for pre-trial assets for launch sequence optimisation
+* The use of artificial intelligence in health economics and healthcare
+* Modelling and optimisation of healthcare capacity and delivery
+* The impact of population ageing and approaches to mitigate this impact
 
 I also endeavour to work on personal projects over on my [personal github](https://github.com/padj), and I'm aiming to try and produce blogs posts for each personal project; time is never on my side though.
 
