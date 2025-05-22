@@ -1,7 +1,7 @@
 ---
 title: "The prevalence of multi-comorbid patients in the US: highlighting the need for multi-indication value assessments"
 collection: talks
-type: "Talk"
+type: "Poster"
 permalink: /talks/2025-05-14-US-comorbidities-006
 venue: "ISPOR US 2025"
 date: 2025-05-14
