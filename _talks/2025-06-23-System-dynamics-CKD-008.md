@@ -8,7 +8,7 @@ date: 2025-06-23
 location: "Leeds, UK"
 ---
 
-This study outlines the potential usage of neural-network-based metamodels within health economics.
+We predicted the future prevalence of CKD in Wales, with a focus on ESKD and its treatment modalities. 
 
 ---
 

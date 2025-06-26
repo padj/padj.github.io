@@ -8,7 +8,7 @@ date: 2025-06-25
 location: "Leeds, UK"
 ---
 
-This study outlines the potential usage of neural-network-based metamodels within health economics.
+We demonstrate how the UK has aged and how it will continue to age, and predict how this ageing will affect demand for healthcare.
 
 ---
 
