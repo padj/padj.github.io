@@ -29,5 +29,3 @@ My Phd considered fish behaviour and their responses to fluid stimuli, culminati
 
 I went on to have a short stint in academia before joining HEOR in May 2021 as a senior data scientist, before I was promoted to principal data scientist in September 2022, and joining the newly formed operational research group in April 2024. 
 
-Other stuff
-======
