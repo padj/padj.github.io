@@ -190,6 +190,9 @@ collections:
   outreach:
     output: true
     permalink: /:collection/:path/
+  podcast:
+    output: true
+    permalink: /:collection/:path/
 
 
 # Defaults
