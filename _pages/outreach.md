@@ -11,7 +11,7 @@ I am very passionate about sharing my enthusiasm for science and modelling. I en
 
 Podcast Appearances
 ======
-I am a frequent guess on "Shaping the Future" a podcast hosted by Dr. Phil McEwan and Dr. Marc Evans, which discusses various health and economic topics. 
+I am a frequent guest on "Shaping the Future" a podcast hosted by Dr. Phil McEwan and Dr. Marc Evans, which discusses various health and economic topics. As these episodes are released, I'll include links and descriptions here. The podcast will be available on Spotify, Apple music, etc. 
 
 {% include base_path %}
 
@@ -21,7 +21,7 @@ I am a frequent guess on "Shaping the Future" a podcast hosted by Dr. Phil McEwa
 
 Other Outreach Activities
 ======
-
+I would love to get involved in more STEM outreach activities. I have a few things in the pipeline, so watch this space!
 
 {% include base_path %}
 
@@ -31,5 +31,5 @@ Other Outreach Activities
 
 Future Outreach Goals
 ======
-I am committed to expanding my outreach activities to reach even broader audiences. If you're interested in collaboration or would like me to speak at your event, please feel free to get in touch.
+I am committed to expanding my outreach activities to reach even broader audiences. If you're interested in some form of collaboration, or would like me to speak at your event, please feel free to get in touch.
 
