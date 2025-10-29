@@ -7,7 +7,7 @@ redirect_from:
   - /outreach.html
 ---
 
-I am very passionate about sharing my enthusiasm for science and modelling. I enjoy the challenge of explaining concepts to individuals and prode myself on my abilities! Through various outreach activities, I am aiming to make complex health and modelling concepts accessible to the public and inspire the next generation of researchers.
+I am very passionate about sharing my enthusiasm for science and modelling. I enjoy the challenge of explaining concepts to individuals and pride myself on my abilities! Through various outreach activities, I am aiming to make complex health and modelling concepts accessible to the public and inspire the next generation of researchers.
 
 Podcast Appearances
 ======
