@@ -259,6 +259,15 @@ defaults:
       author_profile: true
       share: true
       comments: true
+  # _podcast
+  - scope:
+      path: ""
+      type: podcast
+    values:
+      layout: single
+      author_profile: true
+      share: true
+      comments: true
 
 # Sass/SCSS
 sass:
