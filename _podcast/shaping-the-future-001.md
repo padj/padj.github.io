@@ -2,7 +2,7 @@
 title: "Shaping the future: Everything's a system"
 collection: podcast
 permalink: /podcast/shaping-the-future-001
-excerpt: "This is an example podcast appearance"
+excerpt: "Health and health is a system - why don't we consider this in models?"
 date: 2026-01-15
 ---
 
