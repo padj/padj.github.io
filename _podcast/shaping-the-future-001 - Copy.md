@@ -1,9 +1,9 @@
 ---
-title: "Why healthcare decisions fail without systems thinking"
+title: "What is a model? And when is it wrong?"
 collection: podcast
 permalink: /podcast/shaping-the-future-001
 excerpt: "Health is a system - why don't we consider this in models?"
-date: 2026-01-15
+date: 2026-06-18
 ---
 
 I was a guest on this episode of "Shaping the future" with Dr. Phil McEwan. On this episode we talk about how healthcare existing within a system and how we don't frequently consider this within health economics for reimbursement. Furthermore, we discuss a different approach to assessing value in healthcare, which takes into account the system in which healthcare exists. 
