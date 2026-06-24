@@ -2,7 +2,7 @@
 title: "What happens when the public engages with healthcare models?"
 collection: podcast
 permalink: /podcast/shaping-the-future-002
-excerpt: "Health is a system - why don't we consider this in models?"
+excerpt: "Can we play again?"
 date: 2026-02-26
 ---
 
