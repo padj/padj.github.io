@@ -2,7 +2,7 @@
 title: "Why healthcare decisions fail without systems thinking"
 collection: podcast
 permalink: /podcast/shaping-the-future-001
-excerpt: "Health is a system - why don't we consider this in models?"
+excerpt: ""
 date: 2026-01-15
 ---
 

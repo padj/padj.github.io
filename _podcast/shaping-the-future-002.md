@@ -2,7 +2,7 @@
 title: "What happens when the public engages with healthcare models?"
 collection: podcast
 permalink: /podcast/shaping-the-future-002
-excerpt: "Can we play again?"
+excerpt: ""
 date: 2026-02-26
 ---
 
