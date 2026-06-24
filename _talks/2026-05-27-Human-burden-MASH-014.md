@@ -12,6 +12,8 @@ This study estimates the clinical and patient burden of MASLD/MASH in the US, ba
 
 ---
 
+*This poster won an award as the top 5% of the conference*
+
 Abstract:
 Metabolic dysfunction–associated steatotic liver disease (MASLD) can progress to metabolic dysfunction–associated steatohepatitis (MASH), characterized by inflammation, progressive liver damage and scarring. This study aimed to predict the system impact of MASLD/MASH prevalence on the clinical and humanistic burden based on current standard of care practices in the US. 
 

@@ -13,6 +13,8 @@ needed for gNBS to be cost-effective in England
 
 ---
 
+*This poster won an award for best poster of the conference*
+
 Abstract:
 
 Genomics England's Generation Study will sequence 100,000 newborns to screen for more than 200 rare conditions (≈500 genes). As part of the programme, an economic evaluation will assess the cost-effectiveness of genomic newborn screening (gNBS). To provide early, decision-oriented insight ahead of the full evaluation, we conducted a pragmatic threshold analysis to estimate the minimum health gains required for gNBS to be cost-effective at established willingness-to-pay (WTP) thresholds. Panel-wide birth prevalence for 200+ conditions was extrapolated from a sample of 50 conditions (68 genes). UK sequencing costs were identified through a literature review of Embase and MEDLINE (29 January 2026). Breakeven QALY requirements were calculated at £51,000/QALY gained, with scenario analyses at £30,000 and £100,000/QALY gained.
