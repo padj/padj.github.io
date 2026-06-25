@@ -10,7 +10,7 @@ locale                   : "en-UK"
 title                    : "Dr. Thomas E. Padgett"
 title_separator          : "-"
 name                     : &name "Dr. Thomas E. Padgett"
-description              : &description "Health Data Scientist"
+description              : &description "Principal Operational Researcher"
 url                      : https://padj.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "padj.github.io"
@@ -82,7 +82,7 @@ analytics:
 author:
   name             : "Dr. Thomas E. Padgett"
   avatar           : "profile_TP.jfif"
-  bio              : "Principal Consultant"
+  bio              : "Principal Operational Researcher"
   location         : "South Wales"
   employer         : "HEOR"
   pubmed           : 
@@ -181,9 +181,6 @@ collections:
   publications:
     output: true
     permalink: /:collection/:path/
-  portfolio:
-    output: true
-    permalink: /:collection/:path/
   talks:
     output: true
     permalink: /:collection/:path/
@@ -233,15 +230,6 @@ defaults:
       author_profile: true
       share: true
       comments: true
-  # _portfolio
-  - scope:
-      path: ""
-      type: portfolio
-    values:
-      layout: single
-      author_profile: true
-      share: true
-      comment: true
     # _talks
   - scope:
       path: ""
