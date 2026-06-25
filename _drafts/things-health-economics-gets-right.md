@@ -66,4 +66,4 @@ That's not soft. It's a different — and in many ways more demanding — kind o
 
 None of which means engineering has nothing to teach in return. It has plenty, and some of it is exactly the structural discipline that health economics most often lacks. That's the subject of the companion to this post — **"Things engineering gets right (that health economics could borrow)"** — which I'll publish next. If you build models in either world, I'd wager the habit you're proudest of is the one the *other* field would question first. That's usually where the next improvement is hiding.
 
-*If you're working on a problem that sits awkwardly between disciplines — capacity, simulation, value under uncertainty — that intersection is exactly what our operational research group exists for. Feel free to [get in touch](mailto:).*
+*If you're working on a problem that sits awkwardly between disciplines — capacity, simulation, value under uncertainty — that intersection is exactly what our operational research group exists for. Feel free to [get in touch]({{ "/about/" | relative_url }}).*

@@ -12,7 +12,7 @@ tags:
 # This is the SECOND of a two-part pair. The companion is "Things health economics gets right".
 ---
 
-A little while ago I wrote about [three things health economics does better than engineering]({{ "/posts/" | relative_url }}) — uncertainty as the main event, decision-relevance over precision, and transparency for a non-technical audience. I promised a companion piece making the case in the other direction, because fair is fair, and because I genuinely believe the traffic runs both ways.
+A little while ago I wrote about [three things health economics does better than engineering]({{ "/blog/" | relative_url }}) — uncertainty as the main event, decision-relevance over precision, and transparency for a non-technical audience. I promised a companion piece making the case in the other direction, because fair is fair, and because I genuinely believe the traffic runs both ways.
 
 A quick reminder of where I'm standing. I spent the first half of my working life as an engineer, building simulations of fluids, structures, and — improbably — fish. I spent the second half building health economic models that help decide whether a treatment is worth funding. Crossing between the two has made me unusually aware of the habits each field takes for granted, and how often a habit that's second nature in one would be revelatory in the other.
 
@@ -59,4 +59,4 @@ That blend isn't hypothetical for me — it's more or less why I now work in ope
 
 If you build models in either field, I'll repeat the uncomfortable takeaway from the first post, because it cuts both ways: the habit you're proudest of is probably the one the other discipline would question first. That's worth sitting with. It's usually where the next improvement is hiding.
 
-*If you're working on a problem that sits awkwardly between disciplines — capacity, simulation, value under uncertainty — that intersection is exactly what our operational research group exists for. Feel free to [get in touch](mailto:).*
+*If you're working on a problem that sits awkwardly between disciplines — capacity, simulation, value under uncertainty — that intersection is exactly what our operational research group exists for. Feel free to [get in touch]({{ "/about/" | relative_url }}).*
