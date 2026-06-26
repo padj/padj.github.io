@@ -1,37 +1,52 @@
-# Implementation Plan — padj.github.io Look-and-Feel Refresh
+# Implementation Plan — padj.github.io Look-and-Feel Refresh (reconciled)
 
 **Audience:** Claude Code, working directly in the `padj.github.io` repository.
-**Goal:** Sequentially implement every recommendation in section *"03 — What I'd change"* of the design review, moving the site off the stock Minimal Mistakes look toward an editorial, evidence-forward identity — **without breaking the Jekyll build or losing content.**
+**Goal:** Implement the remaining recommendations from the design review, moving the site off the stock Minimal Mistakes look toward an editorial, evidence-forward identity — **without breaking the Jekyll build or losing content.**
 
-This is a Jekyll site (Academic Pages, a fork of Minimal Mistakes). SCSS compiles via `assets/css/main.scss` → `main.css`. Work through the phases **in order**; each phase ends in a clean build and a commit. Do not skip ahead — later phases assume the design tokens from Phase 1 exist.
+> **This is the reconciled v2 of the plan (2026-06-26).** It is updated to current `master` after PR #13 ("UX improvements") merged, and corrects two factual misreads of the codebase in v1. See *"Reconciliation notes"* below for exactly what changed and why.
+
+This is a Jekyll site (Academic Pages, a fork of Minimal Mistakes). SCSS compiles via `assets/css/main.scss` → `main.css`. Work through the phases **in order**; each phase ends in a clean build and a commit. Later phases assume the design tokens from Phase 1 exist.
 
 ---
 
-## How to read this plan
+## Reconciliation notes (what changed from v1, and why)
 
-Each phase has:
-- **Implements** — which review recommendation(s) it satisfies (QW = quick win, BM = bigger move).
-- **Files** — exact paths to touch.
-- **Steps** — concrete edits, with code where it removes ambiguity.
-- **Acceptance** — how to know it's done.
-- **Commit** — the message to use.
+**Already shipped in PR #13 — do not re-do:**
+- Single accent applied to links + nav, and an **active nav state** in the masthead (Liquid `active` class + teal underline, `aria-current`). v1 Phase 3 step 2 is **done**.
+- **Back-to-top** button, **Poster/Talk chips** on the talks list, and a **publications year filter** — all live (these were not in v1 at all).
+- Homepage **title/excerpt** fixed and an **"At a glance"** highlights line added; avatar converted `.jfif → .jpg`; bio tense/links tidied.
 
-The ten recommendations and the phase that delivers each:
+**One factual correction to v1:**
+1. **`_includes/head/custom.html` *is* wired in** (`_layouts/default.html:11`). v1 claimed it wasn't and routed font `<link>`s into `head.html`. Use the intended extension point `head/custom.html` instead.
 
-| # | Recommendation | Phase |
-|---|---|---|
-| QW1 | Real web-font pairing, drop system stack | 2 |
-| QW2 | Fix heading hierarchy | 2 |
-| QW3 | One considered accent colour, applied consistently | 3 |
-| QW4 | Trim social links to the four that are used | 4 |
-| QW5 | One-line positioning statement under the name | 5 |
-| BM1 | Real homepage hero + selected work (not a bio wall) | 7 |
-| BM2 | Surface the visual work (talk map, figures, schematics) | 8 |
-| BM3 | Rework the desktop grid / widen the content lane | 6 |
-| BM4 | Define a small design system (tokens) | 1 |
-| BM5 | Commit to an editorial, research-led aesthetic | 9 |
+**Codebase note for Phase 6 (read the variables carefully):** in `_sass/_variables.scss`, the `$large: 1200px` / `$x-large: 1800px` pair at lines 109–110 is **inside a commented-out block**; the *active* breakpoints are `$large: 925px` / `$x-large: 1280px` (lines 116–117), and the Susy `container` is `$large` (925px). So v1's Phase 6 premise holds: with `$right-sidebar-width* : 0px` and `.page` = `span(10 of 12 last)`, content caps at ~925px and leaves real unused width on ≥1280px screens. Widening is legitimate — confirm against screenshots first so the measure doesn't overshoot.
 
-> Tokens (BM4) are built **first** because the typography, colour and layout phases all consume them.
+**Decisions — RESOLVED 2026-06-26:**
+- **D1 — Accent hex → `#0d5c63` (deep teal).** Single `$accent`, AA on white everywhere (~6.9:1). Retire both `#2a8c8c` and `#176f6f`.
+- **D2 — Web-font strategy → self-host.** Source Serif 4 + Public Sans (+ IBM Plex Mono for meta), served from `assets/fonts/` via `@font-face`. No third-party connection. Requires the `woff2` files committed to the repo.
+- **D3 — Hero ambition → full hero + selected-work cards** (Phase 7), driven by `_data/selected.yml`.
+
+**Environment reality:** there is **no local Ruby/Jekyll toolchain** on the working machine. `bundle`/`jekyll serve` cannot run here. Verify via careful diff + Liquid/SCSS reasoning, then a **branch → PR preview** (GitHub Pages builds `master` on merge). The `_config.dev.yml` overlay does exist for anyone building where Ruby is available.
+
+---
+
+## Recommendation map (post-reconciliation)
+
+| # | Recommendation | Phase | Status |
+|---|---|---|---|
+| BM4 | Design tokens (single source of truth) | 1 | partial — accent/links exist; formalise tokens |
+| QW1 | Real web-font pairing, drop system stack | 2 | **to do** (DECISION D2) |
+| QW2 | Fix heading hierarchy (setext `<h1>` bug) | 2 | **to do** — still present on `/` |
+| QW3 | One considered accent, applied consistently | 3 | mostly done — consolidate + retire stray cyan/grey (DECISION D1) |
+| QW4 | Trim social links to the four used | 4 | **to do** |
+| QW5 | One-line positioning statement | 5 | partial — homepage lead exists; add sidebar tagline |
+| BM3 | Widen desktop reading lane | 6 | **to do** (widen; confirm via screenshots) |
+| BM1 | Homepage hero + selected work | 7 | **to do** (DECISION D3) |
+| BM2 | Surface visual work (figures, talk map) | 8 | **to do** |
+| NEW | Type filter (Talks/Posters) on the talks page | 9 | **to do** (mirror publications filter) |
+| BM5 | Editorial aesthetic pass | 10 | **to do** (respect already-shipped chips/filter) |
+
+> Tokens (Phase 1) come first because typography, colour and layout all consume them.
 
 ---
 
@@ -40,328 +55,320 @@ The ten recommendations and the phase that delivers each:
 **Files:** none (environment only).
 
 **Steps:**
-1. Create a working branch: `git checkout -b feat/look-and-feel-refresh`.
-2. Confirm the site builds and serves locally:
-   ```bash
-   bundle install
-   bundle exec jekyll serve --config _config.yml,_config.dev.yml --livereload
-   ```
-   (The repo ships a `_config.dev.yml` overlay — always include it for local work.)
-3. Capture **baseline screenshots** of the homepage (`/`), a publication list (`/publications/`), the CV (`/cv/`) and one talk page, at 1440px and 375px widths. Save under `design_handoff_site_refresh/baseline/`. These are the before/after reference.
-4. Note the SCSS compile path: edits to `_sass/*.scss` and `_variables.scss` are picked up automatically by `jekyll serve`.
+1. Start from current `master` and create a working branch: `git checkout -b feat/look-and-feel-refresh`.
+2. **Build/preview reality:** there is no local Ruby/Jekyll here. Do **not** rely on `bundle exec jekyll serve` on this machine. Verify each phase by (a) careful diff + SCSS/Liquid review, then (b) pushing the branch and reviewing the **PR diff / preview**. A rendered preview only exists once changes reach `master` (which Pages serves) — or build locally *only* on a machine that has Ruby, using the shipped overlay: `bundle exec jekyll serve --config _config.yml,_config.dev.yml`.
+3. If a Ruby environment is available, capture **baseline screenshots** of `/`, `/publications/`, `/cv/`, and one talk page at 1440px and 375px under `design_handoff_site_refresh/baseline/`. Otherwise capture them from the live site before merge. These are the before/after reference and are also the inputs for the Phase 6 diagnosis.
 
-**Acceptance:** site serves at `http://localhost:4000`, baseline screenshots captured.
+**Acceptance:** working branch created off latest `master`; before-state captured (live or local).
 
-**Commit:** `chore: branch + baseline screenshots for look-and-feel refresh`
+**Commit:** `chore: branch + baseline for look-and-feel refresh`
 
 ---
 
-## Phase 1 — Establish design tokens  *(Implements BM4)*
+## Phase 1 — Formalise design tokens  *(BM4)*
 
-Define the system everything else references. Do **not** restyle components yet — only declare tokens.
+Master already defines a teal accent and AA link colour ad hoc. This phase makes the system explicit and single-sourced. Do **not** restyle components yet — only declare/normalise tokens.
 
 **Files:** `_sass/_variables.scss`
 
-**The one decision to confirm before coding:** the accent colour and type pairing below are a concrete, defensible recommendation for a simulation / health-economics researcher (serious, modern, not trendy). If the site owner has a preferred accent, swap the hex in one place — `$accent` — and everything inherits it.
+**DECISION D1 — settle the accent first.** Pick one `$accent` and delete the competing value. Recommended: deep teal `#0d5c63` (AA everywhere) or keep the shipped `#176f6f`. Avoid leaving both `#2a8c8c` and `#176f6f` in play.
 
 **Steps:**
-
-1. **Typefaces** — replace the system-font definitions. In `_sass/_variables.scss` find the `/* system typefaces */` block and set:
-   ```scss
-   /* typefaces */
-   $serif        : "Source Serif 4", Georgia, "Times New Roman", serif;
-   $sans-serif   : "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-   $monospace    : "IBM Plex Mono", Monaco, Consolas, "Lucida Console", monospace;
-
-   $global-font-family : $sans-serif;   // body + UI
-   $header-font-family : $serif;        // headings now serif — this is the identity move
-   $caption-font-family: $serif;
-   ```
-
-2. **Colour ramp + accent** — below the existing `$gray` ramp, override the semantic colours:
+1. **Introduce semantic tokens** near the existing colour block, *after* the original `$gray` ramp so they win:
    ```scss
    /* ink + accent (refresh) */
-   $text-color   : #1c2024;                 // richer than the old washed dark-grey
-   $accent       : #0d5c63;                 // deep teal — single brand accent (CONFIRM)
+   $text-color   : #1c2024;                 // richer than washed dark-grey
+   $accent       : #0d5c63;                 // single brand accent (DECISION D1)
    $accent-hover : mix(#000, $accent, 18%);
    $accent-muted : mix(#fff, $accent, 88%); // tint for backgrounds/borders
 
-   $primary-color       : $text-color;      // masthead/structural, no longer the grey
+   $primary-color       : $accent;          // theme's de-facto interactive colour
+                                             // (buttons, notices, nav underline, chips,
+                                             // back-to-top) — make it THE accent
    $border-color        : #e6e8eb;
    $link-color          : $accent;
    $link-color-hover    : $accent-hover;
    $link-color-visited  : $accent;
-   $masthead-link-color       : $text-color;
-   $masthead-link-color-hover : $accent;
+   $masthead-link-color       : $text-color;  // nav text reads as ink…
+   $masthead-link-color-hover : $accent;      // …accent on hover/active
    ```
-   Place these **after** the original definitions of the same variables so they win.
-
-3. **Type scale** — keep the existing `$type-size-*` em ladder but we'll consume it with more contrast in Phase 2. Add two semantic sizes for clarity:
+   > Note: PR #13 set `$primary-color: #2a8c8c` and `$link-color: #176f6f` directly. Replace those two lines rather than appending, so there's exactly one definition of each. Setting `$primary-color := $accent` means the PR #13 components (chips, year-filter pills, back-to-top, nav underline) inherit the new teal automatically — so Phase 3 is mostly verification rather than re-pointing.
+2. **Reconcile the active-nav underline.** It currently uses `$primary-color`. Since `$primary-color` becomes ink here, repoint the underline/active colour in `_sass/_navigation.scss` to `$accent` (verify the `.greedy-nav .visible-links a.active` / `&:before` rules added in PR #13 still read as accent, not ink).
+3. **Type pairing tokens** (consumed in Phase 2 — declare now, don't load fonts yet):
+   ```scss
+   $serif      : "Source Serif 4", Georgia, "Times New Roman", serif;
+   $sans-serif : "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+   $monospace  : "IBM Plex Mono", Monaco, Consolas, "Lucida Console", monospace;
+   $global-font-family : $sans-serif;
+   $header-font-family : $serif;   // headings → serif: the identity move
+   $caption-font-family: $serif;
+   ```
+4. **Semantic sizes + spacing scale:**
    ```scss
    $type-size-display : 2.5rem;   // page titles
    $type-size-section : 1.5rem;   // in-content section headings
+   $space-1: 0.5rem; $space-2: 1rem; $space-3: 1.5rem;
+   $space-4: 2.5rem; $space-5: 4rem; $space-6: 6rem;
    ```
 
-4. **Spacing rhythm** — add a simple scale used in later phases:
-   ```scss
-   $space-1: 0.5rem;  $space-2: 1rem;  $space-3: 1.5rem;
-   $space-4: 2.5rem;  $space-5: 4rem;  $space-6: 6rem;
-   ```
+**Acceptance:** SCSS compiles with no errors (verified locally where Ruby exists, else on the PR build). Exactly one definition each of `$accent`, `$link-color`, `$primary-color`. The PR #13 active-nav underline still renders in the accent.
 
-**Acceptance:** `jekyll serve` still compiles with no SCSS errors. The site will look *slightly* different (link colour, text colour) — that's expected; full restyle comes next.
-
-**Commit:** `feat(tokens): introduce serif/sans pairing, teal accent, ink text, spacing scale`
+**Commit:** `feat(tokens): single accent, ink text, serif/sans pairing, spacing scale`
 
 ---
 
-## Phase 2 — Typography: web fonts + heading hierarchy  *(Implements QW1, QW2)*
+## Phase 2 — Typography: web fonts + heading hierarchy  *(QW1, QW2)*
 
-**Files:** `_includes/head.html`, `_sass/_base.scss`, `_sass/_page.scss`, `_pages/about.md`, `_pages/publications.md`, and any other `_pages/*.md` using setext (`======` / `------`) headings.
+**Files:** `_includes/head/custom.html`, `_sass/_base.scss`, `_sass/_page.scss`, `_pages/about.md` (+ any other `_pages/*.md` using setext headings).
 
 **Steps:**
-
-1. **Load the fonts.** `_includes/head/custom.html` is **not** wired into this theme's `head.html`, so add the link directly. In `_includes/head.html`, immediately *above* the `main.css` line, insert:
-   ```html
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-   ```
-
-2. **Heading scale** in `_sass/_base.scss` — the `h1..h6` block currently makes `h1` only `$type-size-3` (~25px) and section heads barely differ. Replace the size rules so the page title clearly dominates:
+1. **Load the fonts via the correct extension point.** `_includes/head/custom.html` *is* already included by `_layouts/default.html` — put the font loading there (not in `head.html`).
+   - **If D2 = self-host (recommended):** add the `woff2` files under `assets/fonts/`, write `@font-face` blocks in a new `_sass/_fonts.scss`, `@import` it first in `main.scss`, and add `<link rel="preload">` for the two or three most-used weights in `head/custom.html`. No third-party connection.
+   - **If D2 = Google CDN:** in `head/custom.html` add:
+     ```html
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+     ```
+   - **If D2 = keep system stack:** skip font loading; revert the Phase 1 typeface tokens to the system stack and treat QW1 as declined.
+2. **Heading scale** in `_sass/_base.scss`. Currently `h1: $type-size-3` (~25px), `h2: $type-size-4`, `h3: $type-size-5` — too flat. Replace so the page title dominates and keep the serif family on the heading group:
    ```scss
    h1 { margin-top: 0; font-size: $type-size-display; line-height: 1.1; letter-spacing: -0.01em; }
    h2 { font-size: $type-size-section; margin: 2.2em 0 0.5em; }
-   h3 { font-size: $type-size-4; }      // ~20px
-   h4 { font-size: $type-size-5; }      // ~16px
+   h3 { font-size: $type-size-4; }
+   h4 { font-size: $type-size-5; }
    ```
-   Keep `font-family: $header-font-family` (now serif) on the heading group.
-
-3. **Page title** in `_sass/_page.scss` — find `.page__title` and ensure it uses the display size and serif:
-   ```scss
-   .page__title {
-     font-family: $header-font-family;
-     font-size: $type-size-display;
-     line-height: 1.1;
-     letter-spacing: -0.01em;
-   }
-   ```
-
-4. **Fix the in-content hierarchy bug.** On the homepage, `_pages/about.md` uses setext underlines, which Markdown renders as **`<h1>`** — so "My research interests" and "My background" currently match the page title. Convert them to `##` (h2):
+3. **Page title** in `_sass/_page.scss` `.page__title` → display size + serif + tight line-height/letter-spacing.
+4. **Fix the heading-hierarchy bug (QW2).** `_pages/about.md` uses setext `======` at lines 18 and 29, which Markdown renders as `<h1>` — so "My research interests" and "My background" currently compete with the page title (3× `<h1>` on `/`). Convert them to `##`:
    ```markdown
    ## My research interests
-   ...
    ## My background
    ```
-   Grep the repo for the same pattern and fix every page:
+   Then sweep the repo for the same pattern and fix any other body section headings:
    ```bash
    grep -rln $'\n======' _pages _publications _talks _outreach
    ```
-   Any body section heading that should sit *below* the page title becomes `##` or `###`. The single page-level title stays in front matter `title:` (rendered as the one `<h1>` by `single.html`).
+   The single page-level `<h1>` stays the front-matter `title:` rendered by the layout.
 
-**Acceptance:** Source Serif 4 renders on headings and Public Sans on body (check in DevTools → Computed → font-family, not the fallback). On `/`, the page title "About me" is visibly larger than "My research interests". No page has two competing `<h1>`s (check with `document.querySelectorAll('h1').length` — should be 1 per page).
+**Acceptance:** Source Serif 4 on headings + Public Sans on body (DevTools → Computed, not fallback). On `/`, `document.querySelectorAll('h1').length === 1`. Page title visibly larger than section headings.
 
-**Commit:** `feat(type): load Source Serif 4 + Public Sans, establish heading hierarchy`
+**Commit:** `feat(type): web-font pairing + heading hierarchy (fix setext h1 bug)`
 
 ---
 
-## Phase 3 — Colour & accent applied consistently  *(Implements QW3)*
+## Phase 3 — Finish the accent rollout  *(QW3)*
 
-Tokens exist (Phase 1); now make sure the old cyan is gone everywhere and the accent is used deliberately.
+Tokens exist (Phase 1); active nav + link/badge colours already use the accent (PR #13). This phase removes any remaining stock greys/cyan and extends the accent to the few components PR #13 didn't touch.
 
-**Files:** `_sass/_variables.scss` (verify), `_sass/_navigation.scss`, `_sass/_buttons.scss`, `_sass/_sidebar.scss`, `_sass/_masthead.scss`.
+**Files:** `_sass/_navigation.scss` (verify), `_sass/_buttons.scss`, `_sass/_sidebar.scss`, `_sass/_masthead.scss`, `_sass/_archive.scss` (verify chips), and a grep across `_sass`.
 
 **Steps:**
-1. Grep for stray hard-coded colours and the old info cyan:
+1. **Hunt stray hard-coded colours / old cyan:**
    ```bash
-   grep -rn "52adc8\|#7a8288\|\$info-color" _sass
+   grep -rn "52adc8\|#7a8288\|\$info-color\|#2a8c8c\|#176f6f" _sass assets/css
    ```
-   Anything that was a link/interactive colour should resolve to `$accent`/`$link-color`; structural greys to `$text-color`/`$border-color`.
-2. **Active nav state** in `_sass/_navigation.scss` (`.greedy-nav` / `.visible-links a`): give links an accent hover and an accent underline on the current page:
-   ```scss
-   .greedy-nav a:hover { color: $accent; }
-   .greedy-nav a { border-bottom: 2px solid transparent; }
-   .greedy-nav a.active,
-   .greedy-nav a:hover { border-bottom-color: $accent; }
-   ```
-   (Active class: Minimal Mistakes doesn't add one automatically — optionally add a Liquid check in `_includes/masthead.html` comparing `link.url` to `page.url` and append `class="active"`.)
-3. **Avatar ring** in `_sass/_sidebar.scss` — `.author__avatar img` currently has `border: 1px solid $border-color`. Make it the accent at a restrained weight:
-   ```scss
-   .author__avatar img { padding: 4px; border: 2px solid $accent-muted; }
-   ```
-4. **Buttons** in `_sass/_buttons.scss` — ensure the default `.btn` uses `$accent` background with white text and `$accent-hover` on hover; remove reliance on `$primary-color` grey.
+   Anything interactive resolves to `$accent`/`$link-color`; structural greys to `$text-color`/`$border-color`. The only `#2a8c8c`/`#176f6f` references should be gone after Phase 1 consolidation.
+2. **Verify, don't duplicate, the active-nav rules** added in PR #13 (`.greedy-nav .visible-links a.active` and the `:before` underline) now point at `$accent`.
+3. **Confirm the talk chips** (`.archive__type-badge--poster` = accent, `--talk` = a neutral slate) still read correctly against the new tokens; adjust the slate if it clashes.
+4. **Avatar ring** in `_sass/_sidebar.scss` — `.author__avatar img`: `padding: 4px; border: 2px solid $accent-muted;`
+5. **Buttons** in `_sass/_buttons.scss` — default `.btn` uses `$accent` bg + white text, `$accent-hover` on hover; ensure white-on-accent ≥ 4.5:1 (true for `#0d5c63`).
 
-**Acceptance:** `grep -rn "52adc8" _sass assets` returns nothing. Links, button, nav hover, and avatar ring all read as the same teal family. No element still shows the old cyan.
+**Acceptance:** `grep -rn "52adc8\|#2a8c8c" _sass assets` returns nothing. Links, buttons, nav hover/active, chips and avatar ring all read as one teal family.
 
-**Commit:** `feat(color): apply single accent to links, nav, buttons, avatar; retire cyan`
+**Commit:** `feat(color): consolidate single accent across nav, buttons, avatar, chips`
 
 ---
 
-## Phase 4 — Trim social links to what's used  *(Implements QW4)*
+## Phase 4 — Trim social links to what's used  *(QW4)*
 
-Keep only LinkedIn, GitHub, Google Scholar, ORCID (the four populated in `_config.yml`'s `author:` block).
+The populated `author:` keys are exactly **googlescholar, github, linkedin, orcid** (+ location, employer). Everything else is an empty branch.
 
 **Files:** `_includes/author-profile.html`, `_includes/footer.html`, `_config.yml`.
 
 **Steps:**
-1. In `_includes/author-profile.html`, delete the dormant `{% if author.* %}` blocks for every network **except** `linkedin`, `github`, `googlescholar`, `orcid`, plus `location` and `employer`. This removes ~25 unused branches and slims the markup. Keep the `Follow` button only if Phase 7 keeps a mobile dropdown; otherwise remove it.
-2. In `_includes/footer.html`, the `page__footer-follow` block currently re-lists Twitter/Facebook/GitHub/Feed — duplicating the sidebar. Reduce it to a single quiet line (e.g. the copyright + one "GitHub" link) or remove the follow list entirely so social lives in **one** place (the sidebar).
-3. In `_config.yml`, leave the four populated keys; you may delete the long list of empty `author:` keys for tidiness (optional, cosmetic).
+1. In `_includes/author-profile.html`, remove the dormant `{% if author.* %}` blocks for every network **except** `linkedin`, `github`, `googlescholar`, `orcid` (keep `location`, `employer`). ~25 unused branches go. Keep the `Follow` button only if a mobile dropdown survives Phase 7.
+2. In `_includes/footer.html`, the follow block re-lists icons that duplicate the sidebar. Reduce to one quiet line (copyright + a single GitHub link) so social lives in **one** place.
+3. In `_config.yml`, optionally delete the long list of empty `author:` keys for tidiness (cosmetic, low risk).
 
-**Acceptance:** sidebar shows exactly four social links + location + employer. Footer no longer repeats the same icons. Build clean.
+**Acceptance:** sidebar shows exactly four channels + location + employer; footer no longer repeats them; build clean.
 
-**Commit:** `refactor(social): keep four real channels, de-duplicate footer follow list`
+**Commit:** `refactor(social): keep four real channels, de-duplicate footer`
 
 ---
 
-## Phase 5 — Positioning statement under the name  *(Implements QW5)*
+## Phase 5 — Positioning statement  *(QW5)*
 
-A one-line "what I do" above the bio, so a 3-second visitor understands the work.
+The homepage already has a role/excerpt and an "At a glance" line (PR #13). This phase adds the **sidebar** one-liner and tightens the homepage lead so the two reinforce each other (avoid duplication).
 
-**Files:** `_includes/author-profile.html` (sidebar), and the top of `_pages/about.md`.
+**Files:** `_includes/author-profile.html`, `_config.yml`, `_sass/_sidebar.scss`, `_pages/about.md`.
 
 **Steps:**
-1. In `_includes/author-profile.html`, under `.author__name` and the existing `author.bio`, the bio currently reads "Principal Operational Researcher". Tighten the sidebar to: name → role (bio) → one positioning clause. Add (driven by a new optional `author.tagline` in `_config.yml`):
-   ```html
-   {% if author.tagline %}<p class="author__tagline">{{ author.tagline }}</p>{% endif %}
-   ```
-   And in `_config.yml` `author:` add:
+1. Add an optional `author.tagline` to `_config.yml`:
    ```yaml
    tagline: "I build simulation & operational-research models for health economics."
    ```
-   Style `.author__tagline` in `_sass/_sidebar.scss`: `font-size: $type-size-6; color: mix(#000,$text-color,0%); line-height: 1.4; margin-top: $space-1;`
-2. In `_pages/about.md`, add a single emphasised lead sentence directly under the `# About me` title, before "Hello!…", e.g. a one-line summary of focus areas. (Keep it to one sentence — the hero in Phase 7 will carry the heavier positioning.)
-
-**Acceptance:** the sidebar and the top of `/` each state, in one line, what Thomas does and for whom.
-
-**Commit:** `feat(content): add positioning tagline to sidebar and homepage lead`
-
----
-
-## Phase 6 — Rework the desktop grid / widen the content lane  *(Implements BM3)*
-
-On wide screens the content hugs the left and a band of white sits unused.
-
-**Files:** `_sass/_variables.scss` (Susy container), `_sass/_page.scss`, `_sass/_sidebar.scss`.
-
-**Steps:**
-1. In `_sass/_variables.scss`, the Susy map sets `container: $large` where `$large: 925px`. Widen the reading container and raise the x-large cap:
-   ```scss
-   $large   : 1100px !default;
-   $x-large : 1320px !default;
+   Render it in `author-profile.html` under `author.bio`:
+   ```html
+   {% if author.tagline %}<p class="author__tagline">{{ author.tagline }}</p>{% endif %}
    ```
-   Adjust the `$susy` `container` to `$large` (already references it) so the grid spans wider.
-2. In `_sass/_page.scss`, the main content uses `span(8 of 12)` / `span(10 of 12)` depending on sidebar. Two acceptable approaches — pick one and apply consistently:
-   - **(a) Wider single column:** keep the left author sidebar, give `.page` content `span(9 of 12)` and increase its `max-width` so paragraphs sit on a comfortable ~70–75ch measure rather than crammed left.
-   - **(b) Centred measure:** on pages without the author sidebar (publications, talks, CV when `author_profile: false`), centre the content column with `margin: 0 auto` and a `max-width: 46rem` for ideal line length.
-3. Ensure the masthead `&__inner-wrap` `max-width` (in `_sass/_masthead.scss`) tracks the new `$x-large` so the nav aligns with the wider content.
+   Style `.author__tagline` in `_sass/_sidebar.scss` (`font-size: $type-size-6; line-height: 1.4; margin-top: $space-1;`).
+2. In `_pages/about.md`, ensure the lead is **one** crisp positioning sentence. If Phase 7's hero lands, fold the existing "At a glance" line into the hero rather than leaving both.
 
-**Acceptance:** at 1440px the content fills a deliberate, centred-feeling lane (no large dead band on the right); paragraph measure is 65–80 characters. At 375px the layout stacks cleanly (sidebar above content).
+**Acceptance:** sidebar and top-of-`/` each state, in one line, what Thomas does and for whom — without repeating each other.
 
-**Commit:** `feat(layout): widen reading lane and rebalance desktop grid`
+**Commit:** `feat(content): sidebar tagline + tightened homepage lead`
 
 ---
 
-## Phase 7 — Homepage hero + selected work  *(Implements BM1)*
+## Phase 6 — Widen the desktop reading lane  *(BM3)*
 
-Replace the "open on a wall of bio text" homepage with a real hero and 2–3 pieces of selected work.
+The active container caps at `$large: 925px` (the `1200px`/`1800px` pair at lines 109–110 is commented out), with `$right-sidebar-width* : 0px` and `.page` = `span(10 of 12 last)`. On ≥1280px screens this leaves a real band of unused width. Widen deliberately — but confirm against the Phase 0 screenshots so the measure doesn't overshoot.
 
-**Files:** `_pages/about.md`, new `_includes/home-hero.html`, new `_includes/selected-work.html`, `_sass/` (new partial `_home.scss` + import in `assets/css/main.scss`).
+**Files:** `_sass/_variables.scss`, `_sass/_page.scss`, `_sass/_masthead.scss`.
 
 **Steps:**
-1. Create `_includes/home-hero.html` — a compact hero: name/role, the positioning line (one strong sentence), and 1–2 primary CTAs (`Publications`, `CV`). Use `<h1>`/serif display type and the accent. Keep it text-first and fast (no heavy background image required; an optional subtle accent rule or a single figure is enough).
-2. Create `_includes/selected-work.html` — a 2–3 card row of *selected* outputs (e.g. the SELECT risk-equations paper in *PharmacoEconomics*, a flagship talk, the talk map). Each card: title, venue/year, one-line description, link. Drive it from a small front-matter list or a `_data/selected.yml` you create, so it's editable without touching markup:
+1. **Raise the breakpoints/container** in `_sass/_variables.scss`: set the *active* `$large` / `$x-large` (lines 116–117) to e.g. `1100px` / `1400px`, and confirm the Susy map `container: $large` picks it up. Edit the active lines (or uncomment and adjust the 109–110 pair) — don't leave two competing definitions.
+2. **Guard the measure.** A wider container must not produce 100ch lines. Cap the prose column — `.page__content { max-width: 48rem; }` (≈70–75ch) — while letting wide elements (figures, galleries, archive lists) use the fuller width.
+3. **Align masthead to content.** Ensure `_sass/_masthead.scss` `&__inner-wrap` `max-width` tracks the new `$x-large` so the nav edge lines up with the content lane.
+
+**Acceptance:** at 1440–1920px the content fills a deliberate, centred-feeling lane with no large dead band; prose measure stays 65–80ch; masthead and content share an edge. At 375px the layout stacks cleanly.
+
+**Commit:** `feat(layout): widen reading lane, cap measure, align masthead`
+
+---
+
+## Phase 7 — Homepage hero + selected work  *(BM1)*
+
+**DECISION D3 — confirm ambition.** Full hero + selected-work cards, or a lighter lead + CTAs built on the existing "At a glance" line.
+
+**Files:** `_pages/about.md`, new `_includes/home-hero.html`, new `_includes/selected-work.html`, `_data/selected.yml`, new `_sass/_home.scss` (+ import in `main.scss`).
+
+**Steps:**
+1. `_includes/home-hero.html` — compact, text-first hero: name/role, one strong positioning sentence, 1–2 primary CTAs (`Publications`, `CV`). Serif display type + accent. No heavy background image required.
+2. `_includes/selected-work.html` — a 2–3 card row of selected outputs, driven by `_data/selected.yml` so it's editable without markup:
    ```yaml
-   # _data/selected.yml
    - title: "Cardiovascular Risk Equations from the SELECT Trial"
      venue: "PharmacoEconomics, 2026"
      url: "/publication/2026-01-19-NN-SELECT-Risk-Equations-007"
      blurb: "Trial-based risk equations for secondary CV events in obesity."
-   - ...
    ```
-3. In `_pages/about.md`, restructure: keep `author_profile: true`, but at the top `{% include home-hero.html %}` then `{% include selected-work.html %}`, and move the long "My background" prose **below** (or onto a dedicated `/about/` page, with `/` becoming the landing). Don't delete the bio — relocate it.
-4. Add `_sass/_home.scss` for hero + card styles (use tokens: serif display, `$accent`, `$space-*`, `$border-color`; cards = white, `1px solid $border-color`, subtle hover lift). Register it in `assets/css/main.scss` after `@import "page";`.
+3. In `_pages/about.md`: keep `author_profile: true`; at the top `{% include home-hero.html %}` then `{% include selected-work.html %}`; relocate the long "My background" prose below (or onto a dedicated `/about/` page). **Fold in the existing "At a glance" line** so it isn't duplicated. Do not delete the bio — relocate it.
+4. `_sass/_home.scss` — hero + card styles from tokens (serif display, `$accent`, `$space-*`, `$border-color`; cards white with `1px solid $border-color` + subtle hover lift). Register after `@import "page";`.
 
-**Acceptance:** `/` opens with a hero + selected-work cards above the fold; full biography still reachable (lower on `/` or on `/about/`). Cards link correctly. No orphaned content.
+**Acceptance:** `/` opens with hero + selected-work above the fold; full bio still reachable; cards link correctly; no orphaned/duplicated content.
 
 **Commit:** `feat(home): hero + selected-work landing, relocate long bio`
 
 ---
 
-## Phase 8 — Surface the visual work  *(Implements BM2)*
+## Phase 8 — Surface the visual work  *(BM2)*
 
-The work is highly visual; show it. The repo already contains assets to use.
+Real assets exist in the repo: `files/ADA2024 - DKD value.png`, `files/ADA2024 - HE Ageing.png`, `files/ADA2024 - T2D SDM.png`, and the Leaflet talk map (`talkmap/map.html`, `_pages/talkmap.html`; `talkmap_link: false` in `_config.yml` hides the link).
 
-**Files:** `images/` (copy in figures), new `_includes/work-gallery.html` (or reuse `_includes/feature_row` / `_includes/gallery`), `_pages/about.md` or a new `/work/` page, `_pages/talks.html` (surface the talk map).
-
-**Available assets in the repo:**
-- `files/ADA2024 - DKD value.png`, `files/ADA2024 - HE Ageing.png`, `files/ADA2024 - T2D SDM.png` — conference figures.
-- `talkmap/map.html` + `_pages/talkmap.html` — an interactive Leaflet map of talk locations (currently `talkmap_link: false` in `_config.yml`, so it's hidden).
+**Files:** `images/`, new `_includes/work-gallery.html`, `_pages/about.md` or a new `/work/` page, `_pages/talks.html`, `_config.yml`.
 
 **Steps:**
-1. Copy the three ADA figures into `images/` (keep originals in `files/`); rename without spaces, e.g. `images/work-dkd-value.png`. Update references accordingly.
-2. Build `_includes/work-gallery.html` — a responsive figure grid (`figure` + serif `figcaption`, which the theme already styles) showing 2–4 model/figure thumbnails with captions naming the model type (system dynamics, agent-based, etc.). Use the theme's `figure.half` / `figure.third` helpers or a CSS grid in `_home.scss`.
-3. Surface the talk map: set `talkmap_link: true` in `_config.yml` so `/talks/` links to it, **and** embed a small preview (an `<iframe src="/talkmap/map.html">` thumbnail or a static screenshot linking through) on the home or `/work/` page.
-4. If a clean model schematic isn't available as an asset, leave a clearly-marked placeholder `figure` with a caption and a TODO comment so the owner can drop one in — do **not** invent/fake a diagram.
+1. Copy the three ADA figures into `images/` with space-free names (e.g. `images/work-dkd-value.png`); keep originals in `files/`. Update references.
+2. `_includes/work-gallery.html` — responsive `figure` + serif `figcaption` grid (2–4 thumbnails) captioned with the model type (system dynamics, agent-based, …). Reuse theme `figure.half`/`figure.third` or a grid in `_home.scss`.
+3. Surface the talk map: set `talkmap_link: true` so `/talks/` links to it, and embed a small preview (an `<iframe>` thumbnail or a static screenshot linking through) on home or `/work/`.
+4. If a clean model schematic isn't available, leave a clearly-marked placeholder `figure` + TODO comment — **do not fabricate** a diagram.
 
-**Acceptance:** at least the three ADA figures and the talk map are visible and captioned on the site (home/work). Images are optimised (reasonable file size) and have `alt` text. Talk map opens and renders.
+**Acceptance:** the three ADA figures + the talk map are visible and captioned; images optimised with `alt` text; map renders.
 
 **Commit:** `feat(work): surface figures and talk map as a captioned gallery`
 
 ---
 
-## Phase 9 — Editorial aesthetic pass  *(Implements BM5)*
+## Phase 9 — Talks & Posters type filter  *(NEW)*
 
-Tie it together so every page feels deliberate, not stock.
+Mirror the publications year filter on the Talks & Posters page so visitors can narrow to **Talks** or **Posters**. Reuse the *exact same* control so the two pages read as one system — extract the shipped `.pub-filter` into a shared component rather than duplicating it.
+
+**Files:** `_sass/_archive.scss`, `_pages/publications.md`, `_pages/talks.html`, optional new `_includes/list-filter.html` (shared JS).
+
+**Builds on PR #13:** the `.pub-filter` / `.pub-filter__btn` / `is-active` styles and the `data-year` filtering JS (publications), plus the `post.type` values `"Talk"` / `"Poster"` already used by the talk chips.
+
+**Steps:**
+1. **Generalise the filter styles** in `_sass/_archive.scss`: rename `.pub-filter` → `.list-filter` (keep `__btn` and `&.is-active`). This becomes the shared filter-bar for any listing; nothing about the visual design changes.
+2. **Repoint publications** in `_pages/publications.md` to the shared class (`.pub-filter` → `.list-filter`), leaving the `data-year` items and JS otherwise unchanged. `grep -rn "pub-filter" _sass _pages` should return nothing afterwards.
+3. **Add the type filter to `_pages/talks.html`**, deriving the set from the data exactly as publications derives years, and mapping the singular `post.type` to a plural label:
+   ```liquid
+   {% assign talks = site.talks | reverse %}
+   {% capture type_list %}{% for post in talks %}{{ post.type | downcase }},{% endfor %}{% endcapture %}
+   {% assign types = type_list | split: ',' | uniq %}
+
+   <div class="list-filter" role="group" aria-label="Filter talks by type">
+     <button type="button" class="list-filter__btn is-active" data-type="all">All</button>
+     {% for t in types %}{% if t != '' %}<button type="button" class="list-filter__btn" data-type="{{ t }}">{{ t | capitalize }}s</button>{% endif %}{% endfor %}
+   </div>
+
+   <div class="talk-list">
+     {% for post in talks %}
+       <div class="talk-item" data-type="{{ post.type | downcase }}">
+         {% include archive-single-talk.html %}
+       </div>
+     {% endfor %}
+   </div>
+   ```
+   (`{{ t | capitalize }}s` → "Talks" / "Posters". If a future `type` doesn't pluralise cleanly, switch to an explicit label map.)
+4. **Filtering JS** — identical pattern to the publications filter, keyed on `data-type` / `.talk-item`. To avoid two near-copies, optionally extract a tiny parameterised script into `_includes/list-filter.html` (item selector + attribute name) and include it on both pages; otherwise inline the same ~15 lines.
+5. **Preserve the existing talk-map link block** (the `talkmap_link` conditional) — keep it above the new filter bar.
+
+**Acceptance:** the Talks & Posters page shows All / Talks / Posters pills **visually identical** to the publications year filter; clicking filters in place with no reload; "All" restores everything; the per-item type chips still render. The publications year filter still works after the class rename.
+
+**Commit:** `feat(talks): Talks/Posters type filter via shared list-filter component`
+
+---
+
+## Phase 10 — Editorial aesthetic pass  *(BM5)*
+
+Tie it together. **Respect what PR #13 already shipped** (talk chips, the shared list-filter pills, back-to-top, active nav) — extend their styling into the system rather than rebuilding them.
 
 **Files:** `_sass/_base.scss`, `_sass/_page.scss`, `_sass/_archive.scss`, `_sass/_notices.scss`, `_sass/_footer.scss`, `_sass/_masthead.scss`.
 
 **Steps:**
-1. **Vertical rhythm:** apply the `$space-*` scale to section spacing, list spacing, and figure margins so spacing is consistent rather than ad hoc.
-2. **Meta as mono:** render dates, venues, read-time and breadcrumbs in `$monospace` (IBM Plex Mono) at a small size with letter-spacing — a quiet editorial signal. Touch `.page__meta`, `.page__date`, `.archive__item` meta in `_sass/_archive.scss`/`_page.scss`.
-3. **Archive list (publications/talks):** restyle `.archive__item-title` (serif), give each item a hairline `border-top: 1px solid $border-color` and generous padding, so the publications page reads as a clean reference list.
-4. **Masthead:** make it quieter and more confident — name in serif or medium-weight, nav in `$sans-serif` small caps or letter-spaced; thin `$border-color` underline. Remove the default intro animation if it feels dated (`_sass/_masthead.scss` `animation: intro`).
-5. **Footer:** simplify to one line (Phase 4) in muted ink/mono; keep the AcademicPages credit but de-emphasise.
-6. **Notices/blockquotes:** retint to the accent family (`_sass/_notices.scss`, `_sass/_base.scss` blockquote left-border → `$accent`).
+1. **Vertical rhythm:** apply `$space-*` to section, list and figure spacing.
+2. **Meta as mono:** render dates, venues, read-time, breadcrumbs in `$monospace` at a small letter-spaced size (`.page__meta`, `.page__date`, archive meta). Ensure the existing `.archive__type-badge` and `.list-filter__btn` sit comfortably with the new meta styling.
+3. **Archive list:** `.archive__item-title` → serif; hairline `border-top: 1px solid $border-color` + generous padding so publications/talks read as a clean reference list.
+4. **Masthead:** quieter and more confident — name in serif/medium weight, nav letter-spaced sans; thin `$border-color` underline. Consider removing the dated `animation: intro`.
+5. **Footer:** one muted line (Phase 4); keep the AcademicPages credit, de-emphasised.
+6. **Notices/blockquotes:** retint to the accent family (blockquote left-border → `$accent`).
 
-**Acceptance:** publications, talks, a blog post, the CV and the homepage all share one type scale, one accent, consistent spacing and mono meta. Side-by-side with the Phase 0 baseline, the site no longer reads as default Minimal Mistakes.
+**Acceptance:** every page shares one type scale, one accent, consistent spacing and mono meta. Side-by-side with baseline, it no longer reads as default Minimal Mistakes; PR #13 components look native to the new system.
 
 **Commit:** `feat(aesthetic): editorial pass — rhythm, mono meta, archive + masthead + footer`
 
 ---
 
-## Phase 10 — QA, accessibility, build & ship
+## Phase 11 — QA, accessibility, ship
 
 **Files:** none new — verification across the site.
 
 **Steps:**
-1. **Responsive:** check `/`, `/publications/`, `/talks/`, `/cv/`, `/outreach/`, a blog post, and a single publication at 1440 / 1024 / 768 / 375px. Sidebar stacks, nav collapses (greedy-nav), figures scale, no horizontal scroll.
-2. **Contrast/a11y:** verify `$text-color` on white and `$accent` on white both meet WCAG AA (≥4.5:1 for body). Teal `#0d5c63` on white ≈ 6.9:1 ✓; confirm any white-on-accent button ≈ ≥4.5:1. All images have `alt`; one `<h1>` per page; nav is keyboard-navigable.
-3. **Build:** run a production build and confirm no errors / no broken links:
-   ```bash
-   JEKYLL_ENV=production bundle exec jekyll build
-   ```
-   Optionally run `html-proofer` over `_site` if available.
-4. **Diff against baseline:** capture after-screenshots into `design_handoff_site_refresh/after/` and eyeball against `baseline/`.
-5. **Cross-browser:** spot-check Chrome + Safari/Firefox (web fonts, greedy-nav).
+1. **Responsive:** `/`, `/publications/`, `/talks/`, `/cv/`, `/outreach/`, a blog post, a single publication at 1440/1024/768/375px. Sidebar stacks, greedy-nav collapses, figures scale, no horizontal scroll, both list-filters (year + talk type) + back-to-top work.
+2. **Contrast/a11y:** `$text-color` and `$accent` on white ≥ 4.5:1 (`#0d5c63` ≈ 6.9:1 ✓); white-on-accent buttons ≥ 4.5:1; every image has `alt`; one `<h1>` per page; nav keyboard-navigable; the list-filter buttons are real `<button>`s (they are) with discernible focus.
+3. **Build:** only where Ruby exists — `JEKYLL_ENV=production bundle exec jekyll build`, optionally `html-proofer` over `_site`. On this machine, rely on the PR preview build instead.
+4. **Diff vs baseline:** capture after-screenshots; eyeball against `baseline/`.
+5. **Cross-browser:** spot-check Chrome + Firefox/Safari (web fonts, greedy-nav, smooth-scroll).
 
-**Acceptance:** clean production build, AA contrast, no broken links, responsive at all breakpoints.
+**Acceptance:** clean build, AA contrast, no broken links, responsive at all breakpoints.
 
-**Commit:** `chore(qa): responsive + a11y + production build verification`
+**Commit:** `chore(qa): responsive + a11y + build verification`
 
-**Then:** open a PR from `feat/look-and-feel-refresh` → default branch with before/after screenshots in the description. GitHub Pages will rebuild on merge.
+**Then:** open a PR from `feat/look-and-feel-refresh` → `master` with before/after screenshots. Pages rebuilds on merge.
 
 ---
 
 ## Guardrails (apply throughout)
 
-- **Don't break the build.** Run `jekyll serve` after every phase; SCSS errors fail silently into an unstyled site.
-- **Tokens are the single source of truth.** Never hard-code a hex or font-family in a component partial — reference `_variables.scss`. If you need a new value, add a token.
-- **Preserve all content.** Relocating the bio is fine; deleting publications, talks, CV entries or outreach posts is not.
-- **One accent.** If you reach for a second saturated colour, stop — use tints of `$accent` or neutrals instead.
-- **No invented assets.** Don't fabricate diagrams, logos, or data. Use the repo's real figures; leave captioned TODO placeholders where a real asset is missing.
-- **Commit per phase** with the messages above so the work is reviewable and reversible.
-- **Confirm the accent + fonts once** (Phase 1) with the site owner before the broad colour/type rollout, since they touch every page.
+- **Don't break the build.** SCSS errors fail silently into an unstyled site. Where Ruby exists, build after each phase; otherwise lean on the PR preview before merging to `master`.
+- **Tokens are the single source of truth.** Never hard-code a hex or font-family in a component partial — reference `_variables.scss`. After Phase 1 there must be exactly one `$accent`.
+- **Preserve all content.** Relocating the bio is fine; deleting publications, talks, CV entries or outreach is not.
+- **One accent.** Reach for a second saturated colour → stop; use tints of `$accent` or neutrals.
+- **No invented assets.** Use the repo's real figures; leave captioned TODO placeholders where one is missing.
+- **Don't regress PR #13.** Active nav, talk chips, year filter, back-to-top and the avatar `.jpg` are shipped — extend, don't overwrite.
+- **Commit per phase** with the messages above so work is reviewable and reversible.
+- **Confirm D1–D3 once** before the broad rollout, since they touch every page.
 
 ## Rollback
 
-Each phase is its own commit on `feat/look-and-feel-refresh`. To revert a phase, `git revert <sha>`. To abandon entirely, delete the branch — `main` is untouched until the PR merges.
+Each phase is its own commit on `feat/look-and-feel-refresh`. Revert a phase with `git revert <sha>`; abandon entirely by deleting the branch — `master` is untouched until the PR merges.
