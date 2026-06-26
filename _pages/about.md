@@ -14,8 +14,7 @@ Hello! My name is Thomas and I'm a principal operational researcher at [HEOR](ht
 
 I have always been curious as to how things work, why things are the way they are, and how things can be improved. This translated into a passion for data and, more importantly, simulation and numerical modelling. That's a very broad field and I'm lucky enough to be employed at a company that supports my desire to work across many different areas, hence the creation of the operational research group; something not common in the industry. 
 
-My research interests
-======
+## My research interests
 * System dynamics models for understanding system-level disease burden.
 * The use of artificial intelligence in health economics and healthcare.
 * Modelling and optimisation of healthcare capacity and delivery.
@@ -25,8 +24,7 @@ These themes run through much of my [recent publications](/publications/) and [c
 
 I also work on personal projects over on my [personal GitHub](https://github.com/padj), and I aim to write up each one as a blog post — though time is rarely on my side.
 
-My background
-======
+## My background
 I received my undergraduate degree (MEng) in aerospace and aeronautical engineering from the [University of Leeds School of Mechanical Engineering](https://eps.leeds.ac.uk/mechanical-engineering). During this time I focussed on simulation of structures, fluids, and the interaction between the two. I wrote my dissertation on structural topology optimisation for satellite components in conjunction with Airbus Group Innovations. I then continued to study at postgraduate level within the [Centre for Doctoral training in Fluid Dynamics](https://fluid-dynamics.leeds.ac.uk/) at the University of Leeds. I originally planned to carry out my PhD in coupled fluid-structure simulations for aircraft control surfaces. However, I ended up being entirely captivated by another topic: fish. 
 
 My Phd considered fish behaviour and their responses to fluid stimuli, culminating in several individual- and agent-based models of fish behaviour. My PhD thesis is available to download from the [White Rose eTheses Repository](https://etheses.whiterose.ac.uk/28307/). 
