@@ -126,8 +126,15 @@
 
   @include breakpoint($large) {
     margin-top: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 6px;
   }
+}
+
+.author__tagline {
+  margin: 0 0 12px;
+  font-size: $type-size-6;
+  line-height: 1.4;
+  color: $text-color;
 }
 
 .author__urls-wrapper {
