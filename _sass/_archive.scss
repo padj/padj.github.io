@@ -66,8 +66,8 @@
   }
 }
 
-/* Publications year filter */
-.pub-filter {
+/* Shared list filter (publications by year, talks by type) */
+.list-filter {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4em;

@@ -1,16 +1,50 @@
 ---
 layout: archive
-title: "Conferences, talks and presentations"
+title: "Talks & Posters"
 permalink: /talks/
 author_profile: true
 ---
 
+{% include base_path %}
+
 {% if site.talkmap_link == true %}
-
-<p style="text-decoration:underline;"><a href="/talkmap.html">See a map of all the places I've given a talk!</a></p>
-
+<p style="text-decoration:underline;"><a href="{{ base_path }}/talkmap.html">See a map of all the places I've given a talk!</a></p>
 {% endif %}
 
-{% for post in site.talks reversed %}
-  {% include archive-single-talk.html %}
-{% endfor %}
+{% assign talks = site.talks | reverse %}
+{% capture type_list %}{% for post in talks %}{{ post.type | downcase }},{% endfor %}{% endcapture %}
+{% assign types = type_list | split: ',' | uniq %}
+
+<div class="list-filter" role="group" aria-label="Filter talks by type">
+  <button type="button" class="list-filter__btn is-active" data-type="all">All</button>
+  {% for t in types %}{% if t != '' %}<button type="button" class="list-filter__btn" data-type="{{ t }}">{{ t | capitalize }}s</button>{% endif %}{% endfor %}
+</div>
+
+<div class="talk-list">
+  {% for post in talks %}
+    <div class="talk-item" data-type="{{ post.type | downcase }}">
+      {% include archive-single-talk.html %}
+    </div>
+  {% endfor %}
+</div>
+
+<script>
+  (function () {
+    var buttons = document.querySelectorAll('.list-filter__btn');
+    var items = document.querySelectorAll('.talk-item');
+    if (!buttons.length || !items.length) { return; }
+    function apply(type) {
+      items.forEach(function (item) {
+        var match = (type === 'all') || (item.getAttribute('data-type') === type);
+        item.style.display = match ? '' : 'none';
+      });
+    }
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        buttons.forEach(function (b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        apply(btn.getAttribute('data-type'));
+      });
+    });
+  })();
+</script>
