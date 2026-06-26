@@ -41,7 +41,7 @@
 
 .archive__item-title {
   margin-bottom: 0.25em;
-  font-family: $sans-serif-narrow;
+  font-family: $header-font-family;
 
   a + a {
     opacity: 0.5;
@@ -66,8 +66,8 @@
   }
 }
 
-/* Publications year filter */
-.pub-filter {
+/* Shared list filter (publications by year, talks by type) */
+.list-filter {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4em;
@@ -146,6 +146,10 @@
    ========================================================================== */
 
 .list__item {
+  padding-top: $space-2;
+  margin-top: $space-2;
+  border-top: 1px solid $border-color;
+
   @include breakpoint($medium) {
     padding-right: $right-sidebar-width-narrow;
   }

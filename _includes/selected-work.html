@@ -1,0 +1,16 @@
+{% include base_path %}
+
+{% if site.data.selected %}
+<section class="selected-work">
+  <h2 class="selected-work__heading">Selected work</h2>
+  <div class="selected-work__grid">
+    {% for item in site.data.selected %}
+      <a class="work-card" href="{{ base_path }}{{ item.url }}">
+        <span class="work-card__venue">{{ item.venue }}</span>
+        <span class="work-card__title">{{ item.title }}</span>
+        <span class="work-card__blurb">{{ item.blurb }}</span>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

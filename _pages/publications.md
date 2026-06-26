@@ -15,9 +15,9 @@ author_profile: true
 {% capture year_list %}{% for post in pubs %}{{ post.date | date: '%Y' }},{% endfor %}{% endcapture %}
 {% assign years = year_list | split: ',' | uniq %}
 
-<div class="pub-filter" role="group" aria-label="Filter publications by year">
-  <button type="button" class="pub-filter__btn is-active" data-year="all">All</button>
-  {% for y in years %}{% if y != '' %}<button type="button" class="pub-filter__btn" data-year="{{ y }}">{{ y }}</button>{% endif %}{% endfor %}
+<div class="list-filter" role="group" aria-label="Filter publications by year">
+  <button type="button" class="list-filter__btn is-active" data-year="all">All</button>
+  {% for y in years %}{% if y != '' %}<button type="button" class="list-filter__btn" data-year="{{ y }}">{{ y }}</button>{% endif %}{% endfor %}
 </div>
 
 <div class="pub-list">
@@ -30,7 +30,7 @@ author_profile: true
 
 <script>
   (function () {
-    var buttons = document.querySelectorAll('.pub-filter__btn');
+    var buttons = document.querySelectorAll('.list-filter__btn');
     var items = document.querySelectorAll('.pub-item');
     if (!buttons.length || !items.length) { return; }
     function apply(year) {
