@@ -52,6 +52,7 @@
 }
 
 .page__content {
+  max-width: 50rem; /* keep prose to a readable ~70-80ch measure on wide screens */
 
   h2 {
     padding-bottom: 0.5em;
