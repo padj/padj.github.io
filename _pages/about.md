@@ -12,6 +12,8 @@ redirect_from:
 
 {% include selected-work.html %}
 
+{% include work-gallery.html %}
+
 Hello! My name is Thomas and I'm a principal operational researcher at [HEOR](https://heor.co.uk/). I'm an aerospace engineer by training, with a PhD in agent-based modelling and computational fluid dynamics. I made the jump from engineering to pharmaceutical data science and health economics in May 2021. 
 
 I have always been curious as to how things work, why things are the way they are, and how things can be improved. This translated into a passion for data and, more importantly, simulation and numerical modelling. That's a very broad field and I'm lucky enough to be employed at a company that supports my desire to work across many different areas, hence the creation of the operational research group; something not common in the industry. 
