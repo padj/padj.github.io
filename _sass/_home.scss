@@ -88,32 +88,3 @@
     color: mix(#fff, $text-color, 25%);
   }
 }
-
-/* Work gallery (figures) — populated in Phase 8 */
-.work-gallery {
-  margin: 0 0 $space-4;
-
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: $space-2;
-  }
-
-  figure {
-    margin: 0;
-  }
-
-  img {
-    width: 100%;
-    border: 1px solid $border-color;
-    border-radius: $border-radius;
-  }
-
-  figcaption {
-    font-family: $caption-font-family;
-    font-size: $type-size-6;
-    color: mix(#fff, $text-color, 25%);
-    margin-top: 0.5em;
-    line-height: 1.4;
-  }
-}
