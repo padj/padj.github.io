@@ -1,0 +1,11 @@
+# Coordinates [latitude, longitude] for talk locations.
+# Keys must match the `location:` field in _talks entries exactly.
+# Add a line here when a talk is given in a new city; the talk map
+# (talkmap/org-locations.js) reads these and plots every talk automatically.
+"Barcelona, Spain": [41.3851, 2.1734]
+"Glasgow, UK": [55.8642, -4.2518]
+"Leeds, UK": [53.8008, -1.5491]
+"London, UK": [51.5072, -0.1276]
+"Montréal, Quebec, Canada": [45.5017, -73.5673]
+"Orlando, Florida, United States": [28.5383, -81.3792]
+"San Antonio, Texas, United States": [29.4252, -98.4946]

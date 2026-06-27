@@ -1,22 +1,15 @@
+---
+# Front matter makes Jekyll render this file: the marker list is generated
+# from every entry in _talks, resolving each `location:` to coordinates via
+# _data/locations.yml. Add a talk (or a new city in locations.yml) and it
+# appears on the map automatically — no manual editing of this file.
+---
 var addressPoints = [
-  [
-    "Berkeley CA, USA",
-    37.8708393,
-    -122.2728638
-  ],
-  [
-    "London, UK",
-    51.5073219,
-    -0.1276473
-  ],
-  [
-    "San Francisco, California",
-    37.7792808,
-    -122.4192362
-  ],
-  [
-    "Los Angeles, CA",
-    34.0543942,
-    -118.2439408
-  ]
+{% assign talks = site.talks | sort: "date" | reverse -%}
+{% for post in talks -%}
+{% assign loc = site.data.locations[post.location] -%}
+{% if loc -%}
+  [{{ post.title | jsonify }}, {{ loc[0] }}, {{ loc[1] }}],
+{% endif -%}
+{% endfor -%}
 ];
