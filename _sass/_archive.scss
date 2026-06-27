@@ -122,6 +122,17 @@
   }
 }
 
+/* Compact CV list entries (publications / conferences) */
+.cv-entry {
+  margin-bottom: 0.5em;
+  line-height: 1.4;
+
+  &__meta {
+    color: mix(#fff, $text-color, 25%);
+    font-size: $type-size-6;
+  }
+}
+
 .archive__item-teaser {
   border-radius: $border-radius;
   overflow: hidden;
