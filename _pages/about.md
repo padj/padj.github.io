@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Dr Thomas Padgett — Health Data Scientist"
+title: "Dr Thomas Padgett — Health Modeller"
 excerpt: "Principal Operational Researcher at HEOR — simulation, system dynamics and AI in health economics and healthcare."
 author_profile: true
 redirect_from: 
