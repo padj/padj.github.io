@@ -19,8 +19,7 @@ redirect_from:
 * MSc & PhD in Computational Fluid Dynamics & Agent-based Modelling, University of Leeds, 2020
 * MEng in Aeronautical and Aerospace Engineering, University of Leeds, 2015
 
-## Skills
-* Consulting and problem solving
+## Technical skills
 * Numerical modelling; inc. health economic modelling, simulation, DES, etc. 
 * System dynamics (i.e. dynamic prevalence prediction)
 * Machine learning (i.e. risk prediction), including neural-network-based risk equations
@@ -29,9 +28,16 @@ redirect_from:
 * Genomic/newborn screening economic evaluation
 * Healthcare capacity and delivery optimisation
 * Experience with real-world data (NHANES, CPRD, HES)
-* Early drug pricing, revenue forecasting, launch sequence optimisation
 * Fully- and semi-parametric survival analysis
 * R Shiny app development
+
+## Non-technical skills
+* Consulting and problem solving
+* Early drug pricing, revenue forecasting, launch sequence optimisation
+* Stakeholder engagement and communication of complex modelling to non-technical audiences
+* Cross-functional collaboration across data science, clinical, and commercial teams
+* Scientific writing and peer-reviewed publication
+* Conference presentation and public speaking
 
 ## Awards
 * Best Poster, Genomics England Research Summit 2026 — "Estimating the value of genomic newborn screening in England: A pragmatic threshold analysis"
