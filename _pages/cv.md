@@ -35,6 +35,7 @@ redirect_from:
 
 ## Awards
 * Best Poster, Genomics England Research Summit 2026 — "Estimating the value of genomic newborn screening in England: A pragmatic threshold analysis"
+* TOP Poster, EASL 2026 — "Clinical and humanistic burden of metabolic dysfunction-associated steatotic liver disease and metabolic dysfunction-associated steatohepatitis in the United States: a system dynamics model"
 
 ## Publications
   <ul>{% for post in site.publications reversed %}
