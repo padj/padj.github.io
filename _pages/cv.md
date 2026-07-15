@@ -23,11 +23,18 @@ redirect_from:
 * Consulting and problem solving
 * Numerical modelling; inc. health economic modelling, simulation, DES, etc. 
 * System dynamics (i.e. dynamic prevalence prediction)
-* Machine learning (i.e. risk prediction)
+* Machine learning (i.e. risk prediction), including neural-network-based risk equations
+* Metamodelling and explainable AI (e.g. SHAP analysis)
+* Infectious disease and vaccination modelling
+* Genomic/newborn screening economic evaluation
+* Healthcare capacity and delivery optimisation
 * Experience with real-world data (NHANES, CPRD, HES)
 * Early drug pricing, revenue forecasting, launch sequence optimisation
 * Fully- and semi-parametric survival analysis
 * R Shiny app development
+
+## Awards
+* Best Poster, Genomics England Research Summit 2026 — "Estimating the value of genomic newborn screening in England: A pragmatic threshold analysis"
 
 ## Publications
   <ul>{% for post in site.publications reversed %}
