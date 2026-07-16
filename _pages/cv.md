@@ -38,6 +38,7 @@ redirect_from:
 * Cross-functional collaboration across data science, clinical, and commercial teams
 * Scientific writing and peer-reviewed publication
 * Conference presentation and public speaking
+* Science communication and outreach, including recurring guest appearances on the "Shaping the Future" health economics podcast
 
 ## Awards
 * Best Poster, Genomics England Research Summit 2026 — "Estimating the value of genomic newborn screening in England: A pragmatic threshold analysis"
