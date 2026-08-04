@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "What is a model?"
-excerpt: "A model is not a smaller copy of reality. It is a purposeful way of deciding what matters, what can be ignored, and what follows from the assumptions we make."
+excerpt: "A model is a purposeful way of deciding what matters, what can be ignored, and what follows from the assumptions we make."
 tags:
     - modelling
     - science
