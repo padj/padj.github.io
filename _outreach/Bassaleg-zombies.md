@@ -9,3 +9,5 @@ location: "Newport, Wales"
 ---
 
 I re-presented our zombie modelling presentation, alongside Dr. Cerys Mitchell, at [Bassaleg School](https://www.bassalegschool.com/); a local secondary school in Wales. This work was originally presented at the [Oxford Science and Ideas Festival](https://if-oxford.com/events/).
+
+Update 2026-08-05: I'm pleased to say that the zombie model is available to the public [here](https://heor.co.uk/what-can-zombies-teach-us-about-public-health/).
