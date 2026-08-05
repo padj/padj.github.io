@@ -49,6 +49,7 @@ The model is useful because it is simple enough to calculate and the burden of i
 It is tempting to think of models as gospel: an infallible machine that produces an answer. However, a better way to think about it is as a structured argument:
 
 > If the inputs and assumptions within our model are reasonable, and if these rules describe the important relationships, then this is what follows.
+
 This may seem like it's verging on a politician's answer, but that conditional wording matters. The result of our model is only valid under the assumptions we've made. 
 
 The most valuable habit modelling teaches is to make hidden choices visible. What exactly are we assuming? What evidence supports it? What would happen if it were wrong? What information would most improve the answer?
