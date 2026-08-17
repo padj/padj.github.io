@@ -281,6 +281,39 @@
   }
 }
 
+/* Tag archive filter bar */
+
+.taxonomy__index {
+  margin-bottom: 1.5em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid $border-color;
+}
+
+.taxonomy__filter--active {
+  color: #fff;
+  background-color: $accent;
+  border-color: $accent;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.taxonomy__count {
+  font-size: $type-size-7;
+  opacity: 0.7;
+}
+
+.taxonomy__status {
+  margin-bottom: 1.5em;
+  font-size: $type-size-6;
+}
+
+.taxonomy__section[hidden],
+.taxonomy__status[hidden] {
+  display: none;
+}
+
 
 /*
    Comments
