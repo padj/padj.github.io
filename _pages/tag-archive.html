@@ -8,10 +8,74 @@ author_profile: true
 {% include base_path %}
 {% include group-by-array collection=site.posts field="tags" %}
 
+<nav class="taxonomy__index" aria-label="Filter posts by tag">
+  <a href="{{ base_path }}/tags/" class="page__taxonomy-item taxonomy__filter" data-tag-filter="">All tags</a>
+  {% for tag in group_names %}
+    <a href="{{ base_path }}/tags/#{{ tag | slugify }}" class="page__taxonomy-item taxonomy__filter" data-tag-filter="{{ tag | slugify }}" rel="tag">{{ tag }} <span class="taxonomy__count">{{ group_items[forloop.index0] | size }}</span></a>
+  {% endfor %}
+</nav>
+
+<p class="taxonomy__status" id="tag-filter-status" hidden>
+  Showing posts tagged <strong id="tag-filter-name"></strong>.
+  <a href="{{ base_path }}/tags/" id="tag-filter-clear">Show all tags</a>
+</p>
+
 {% for tag in group_names %}
   {% assign posts = group_items[forloop.index0] %}
-  <h2 id="{{ tag | slugify }}" class="archive__subtitle">{{ tag }}</h2>
-  {% for post in posts %}
-    {% include archive-single.html %}
-  {% endfor %}
+  <section class="taxonomy__section" data-tag-section="{{ tag | slugify }}">
+    <h2 id="{{ tag | slugify }}" class="archive__subtitle">{{ tag }}</h2>
+    {% for post in posts %}
+      {% include archive-single.html %}
+    {% endfor %}
+  </section>
 {% endfor %}
+
+<script>
+  (function () {
+    var sections = document.querySelectorAll('[data-tag-section]');
+    var filters = document.querySelectorAll('[data-tag-filter]');
+    var status = document.getElementById('tag-filter-status');
+    var statusName = document.getElementById('tag-filter-name');
+
+    function applyFilter(scrollToTop) {
+      var slug = (window.location.hash || '').replace(/^#/, '').toLowerCase();
+      var matched = null;
+
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i].getAttribute('data-tag-section') === slug) {
+          matched = sections[i];
+          break;
+        }
+      }
+
+      // Empty or unknown hash falls through to showing every section.
+      for (var j = 0; j < sections.length; j++) {
+        sections[j].hidden = matched ? sections[j] !== matched : false;
+      }
+
+      for (var k = 0; k < filters.length; k++) {
+        var filter = filters[k];
+        var active = matched
+          ? filter.getAttribute('data-tag-filter') === slug
+          : filter.getAttribute('data-tag-filter') === '';
+        filter.classList.toggle('taxonomy__filter--active', active);
+        if (active) {
+          filter.setAttribute('aria-current', 'true');
+        } else {
+          filter.removeAttribute('aria-current');
+        }
+      }
+
+      if (matched) {
+        statusName.textContent = matched.querySelector('.archive__subtitle').textContent;
+        status.hidden = false;
+        if (scrollToTop) { window.scrollTo(0, 0); }
+      } else {
+        status.hidden = true;
+      }
+    }
+
+    applyFilter(false);
+    window.addEventListener('hashchange', function () { applyFilter(true); });
+  })();
+</script>
