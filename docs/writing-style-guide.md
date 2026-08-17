@@ -135,7 +135,7 @@ MathJax v2.7.4 is loaded site-wide, so LaTeX works in any post:
 
 ## Front matter
 
-Set front matter exactly per collection. Layout, `author_profile`, `comments`, `share`, etc. are applied automatically by `_config.yml` defaults — you rarely need to set them. Dates are ISO `YYYY-MM-DD`. Tags are lower-case.
+Set front matter exactly per collection. Layout, `author_profile`, `comments`, `share`, etc. are applied automatically by `_config.yml` defaults — you rarely need to set them. Dates are ISO `YYYY-MM-DD`. Tags are lower-case — see [`docs/blog-post-tags.md`](blog-post-tags.md) for which tags to pick.
 
 **Blog post** (`_posts/`, filename `YYYY-MM-DD-slug.md`):
 ```yaml
