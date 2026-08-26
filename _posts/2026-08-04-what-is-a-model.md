@@ -22,7 +22,7 @@ Consider a map of a city. It is a simplified representation of reality (a city) 
 
 Now imagine you want to plan a route to run around this city, you may want more detail: e.g. footpaths, cycle paths, elevation data. In this case our original city map may no longer be suitable. That doesn't mean it's incorrect, just that it's the wrong model for this purpose. 
 
-Scientific and mathematical models work in the same way. They leave things out on purpose. In fact, I would argue, as a modeller, that the decision of where the *bounds* of the model are, is the most important aspect of model building. The art is not to include everything; it is to leave out the details that do not matter for the *model's purpose* while keeping the features that do. This is a bit of an art as it's often difficult to know *a priori* what the model will and won't be sensitive to. 
+Scientific and mathematical models work in the same way. They leave things out on purpose. In fact, I would argue, as a modeller, that the decision of where the *bounds* of the model are, is the most important aspect of model building. The art is not to include everything; it is to leave out the details that do not matter for the *model's purpose* while keeping the features that do. This is a bit of an art as it's often difficult to know *a priori* (in advance) what the model will and won't be sensitive to. 
 
 I explored this idea in a very literal way in an outreach session: [what zombies can teach us about public health]({{ "/outreach/Oxford-IF-zombies" | relative_url }}): the audience could engage with a deliberately simplified zombie outbreak model, then see how the same reasoning applies to real public-health decisions.
 
