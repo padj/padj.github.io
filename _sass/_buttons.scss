@@ -68,6 +68,7 @@
   /* information */
 
   &--info {
+    color: #fff !important; /* status/brand buttons keep white text in both themes */
     background-color: $info-color;
 
     &:hover {
@@ -78,6 +79,7 @@
   /* warning */
 
   &--warning {
+    color: #fff !important;
     background-color: $warning-color;
 
     &:hover {
@@ -88,6 +90,7 @@
   /* success */
 
   &--success {
+    color: #fff !important;
     background-color: $success-color;
 
     &:hover {
@@ -98,6 +101,7 @@
   /* danger */
 
   &--danger {
+    color: #fff !important;
     background-color: $danger-color;
 
     &:hover {
@@ -125,6 +129,7 @@
 
   @each $socialnetwork, $color in $social {
     &--#{$socialnetwork} {
+      color: #fff !important;
       background-color: $color;
 
       &:hover {
