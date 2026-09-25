@@ -31,7 +31,7 @@
   margin: 1.414em 0 0;
   padding-bottom: 0.5em;
   font-size: $type-size-5;
-  color: mix(#fff, $gray, 25%);
+  color: $gray-muted;
   border-bottom: 1px solid $border-color;
 
   + .list__item .archive__item-title {
@@ -88,12 +88,12 @@
             transition: $global-transition;
 
     &:hover {
-      color: #fff;
-      background: mix(#fff, $primary-color, 25%);
+      color: $on-accent-color;
+      background: theme-tint($primary-color, 25%);
     }
 
     &.is-active {
-      color: #fff;
+      color: $on-accent-color;
       background: $primary-color;
     }
   }
@@ -109,7 +109,7 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   text-decoration: none;
-  color: #fff;
+  color: $on-accent-color;
   background: $primary-color;
   border-radius: 1em;
 
@@ -128,7 +128,7 @@
   line-height: 1.4;
 
   &__meta {
-    color: mix(#fff, $text-color, 25%);
+    color: theme-tint($text-color, 25%);
     font-size: $type-size-6;
   }
 }

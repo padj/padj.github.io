@@ -18,7 +18,7 @@
     font-family: $monospace;
     font-size: $type-size-7;
     letter-spacing: 0.02em;
-    color: mix(#fff, $text-color, 30%);
+    color: theme-tint($text-color, 30%);
     margin: 0 0 $space-3;
   }
 
@@ -85,6 +85,6 @@
     display: block;
     font-size: $type-size-6;
     line-height: 1.4;
-    color: mix(#fff, $text-color, 25%);
+    color: theme-tint($text-color, 25%);
   }
 }

@@ -55,23 +55,82 @@ $space-4: 2.5rem; $space-5: 4rem;  $space-6: 6rem;
    Colors
    ========================================================================== */
 
-$gray                       : #7a8288;
-$dark-gray                  : mix(#000, $gray, 40%);
-$darker-gray                : mix(#000, $gray, 60%);
-$light-gray                 : mix(#fff, $gray, 50%);
-$lighter-gray               : mix(#fff, $gray, 90%);
+/* Theme palettes — static values emitted as CSS custom properties by
+   _themes.scss. Partials should use the themed variables below (which
+   resolve to var(--…)) so colours switch at runtime. */
 
-$body-color                 : #fff;
-$background-color           : #fff;
-$code-background-color      : #fafafa;
+$light-gray-base            : #7a8288;
+$light-accent-base          : #0d5c63;                  // deep teal, AA on white (~6.9:1)
+
+$light-palette: (
+  bg                        : #fff,
+  surface                   : #fff,
+  text                      : #1c2024,                  // richer ink for body text (refresh)
+  contrast                  : #000,                     // "black" in light, "white" in dark
+  gray                      : $light-gray-base,
+  gray-muted                : mix(#fff, $light-gray-base, 25%),  // secondary/meta text
+  dark-gray                 : mix(#000, $light-gray-base, 40%),
+  darker-gray               : mix(#000, $light-gray-base, 60%),
+  light-gray                : mix(#fff, $light-gray-base, 50%),
+  lighter-gray              : mix(#fff, $light-gray-base, 90%),
+  border                    : #e6e8eb,                  // (refresh)
+  code-bg                   : #fafafa,
+  accent                    : $light-accent-base,
+  accent-hover              : mix(#000, $light-accent-base, 18%),
+  accent-muted              : mix(#fff, $light-accent-base, 88%),  // tint for borders/backgrounds
+  on-accent                 : #fff,                     // text on accent backgrounds
+  overlay                   : rgba(255, 255, 255, 0.85),
+  syntax-text               : #586e75,                  // Solarized base01
+  syntax-comment            : #93a1a1                   // Solarized base1
+);
+
+$dark-accent-base           : #5fbfc7;                  // lightened teal, AA on dark bg (~8.9:1)
+
+$dark-palette: (
+  bg                        : #121417,
+  surface                   : #1b1f23,
+  text                      : #e3e6e8,
+  contrast                  : #fff,
+  gray                      : #8f989f,
+  gray-muted                : #9aa2a9,
+  dark-gray                 : #b3bac0,
+  darker-gray               : #ccd2d6,
+  light-gray                : #3b4248,
+  lighter-gray              : #22272c,
+  border                    : #2a3036,
+  code-bg                   : #1b1f23,
+  accent                    : $dark-accent-base,
+  accent-hover              : mix(#fff, $dark-accent-base, 30%),
+  accent-muted              : mix(#121417, $dark-accent-base, 75%),
+  on-accent                 : #0b1416,
+  overlay                   : rgba(18, 20, 23, 0.85),
+  syntax-text               : #a3b1b3,                  // ~Solarized base0, brightened
+  syntax-comment            : #6c7f86                   // ~Solarized base01
+);
+
+/* themed colours (runtime-switchable) */
+$gray                       : var(--gray);
+$gray-muted                 : var(--gray-muted);
+$dark-gray                  : var(--dark-gray);
+$darker-gray                : var(--darker-gray);
+$light-gray                 : var(--light-gray);
+$lighter-gray               : var(--lighter-gray);
+
+$body-color                 : var(--bg);
+$background-color           : var(--bg);
+$surface-color              : var(--surface);
+$code-background-color      : var(--code-bg);
 $code-background-color-dark : $light-gray;
-$text-color                 : #1c2024;     // richer ink for body text (refresh)
-$border-color               : #e6e8eb;     // (refresh)
+$text-color                 : var(--text);
+$contrast-color             : var(--contrast);
+$border-color               : var(--border);
+$overlay-color              : var(--overlay);
 
 /* accent — single brand colour (refresh, D1) */
-$accent                     : #0d5c63;                  // deep teal, AA on white (~6.9:1)
-$accent-hover               : mix(#000, $accent, 18%);
-$accent-muted               : mix(#fff, $accent, 88%);  // tint for borders/backgrounds
+$accent                     : var(--accent);
+$accent-hover               : var(--accent-hover);
+$accent-muted               : var(--accent-muted);
+$on-accent-color            : var(--on-accent);
 
 $primary-color              : $accent;  // theme's de-facto interactive colour:
                                         // buttons, notices, nav underline, chips, back-to-top

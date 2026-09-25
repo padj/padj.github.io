@@ -1,0 +1,65 @@
+/* ==========================================================================
+   THEMES (light / dark)
+   Emits the palettes from _variables.scss as CSS custom properties.
+   The active theme is set on <html data-theme="…"> by the inline script in
+   _includes/head.html (stored choice → OS preference → light).
+   ========================================================================== */
+
+/* Mix a themed colour toward the page background (≈ mix(#fff, $c, $amount)
+   in light mode, fades toward the dark background in dark mode). */
+@function theme-tint($color, $amount) {
+  @return unquote("color-mix(in srgb, #{$color}, var(--bg) #{$amount})");
+}
+
+/* Mix a themed colour toward the contrast colour (≈ mix(#000, $c, $amount)
+   in light mode, lightens in dark mode). */
+@function theme-shade($color, $amount) {
+  @return unquote("color-mix(in srgb, #{$color}, var(--contrast) #{$amount})");
+}
+
+/* Translucent version of a (possibly themed) colour, like rgba($c, $alpha). */
+@function theme-alpha($color, $amount) {
+  @return unquote("color-mix(in srgb, #{$color} #{$amount}, transparent)");
+}
+
+@mixin theme-palette($palette) {
+  @each $name, $value in $palette {
+    --#{$name}: #{$value};
+  }
+}
+
+:root {
+  @include theme-palette($light-palette);
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  @include theme-palette($dark-palette);
+  color-scheme: dark;
+}
+
+/* Always print with the light palette */
+@media print {
+  html[data-theme="dark"] {
+    @include theme-palette($light-palette);
+    color-scheme: light;
+  }
+}
+
+/* Smooth colour change when toggling (class added by the toggle script only,
+   so there is no transition on initial page load). */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, fill 0.25s ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition: none !important;
+  }
+}
