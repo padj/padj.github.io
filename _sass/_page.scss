@@ -231,7 +231,7 @@
 
 .page__meta {
   margin-top: 2em;
-  color: mix(#fff, $gray, 25%);
+  color: $gray-muted;
   font-family: $monospace;
   font-size: $type-size-7;
   letter-spacing: 0.03em;
@@ -290,12 +290,12 @@
 }
 
 .taxonomy__filter--active {
-  color: #fff;
+  color: $on-accent-color;
   background-color: $accent;
   border-color: $accent;
 
   &:hover {
-    color: #fff;
+    color: $on-accent-color;
   }
 }
 

@@ -239,7 +239,7 @@ figure {
 
 figcaption {
   margin-bottom: 0.5em;
-  color: mix(#fff, $text-color, 25%);
+  color: theme-tint($text-color, 25%);
   font-family: $caption-font-family;
   font-size: $type-size-6;
 
@@ -251,8 +251,8 @@ figcaption {
     transition: $global-transition;
 
     &:hover {
-      color: #000;
-      border-bottom-color: #000;
+      color: $contrast-color;
+      border-bottom-color: $contrast-color;
     }
   }
 }

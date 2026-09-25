@@ -16,7 +16,7 @@
   border: 0;
   border-radius: 50%;
   background: $primary-color;
-  color: #fff;
+  color: $on-accent-color;
   font-size: $type-size-5;
   line-height: 1;
   cursor: pointer;
@@ -29,11 +29,11 @@
           transition: $global-transition;
 
   &:hover {
-    background: mix(#000, $primary-color, 15%);
+    background: theme-shade($primary-color, 15%);
   }
 
   &:focus {
-    outline: 2px solid mix(#fff, $primary-color, 40%);
+    outline: 2px solid theme-tint($primary-color, 40%);
     outline-offset: 2px;
   }
 
