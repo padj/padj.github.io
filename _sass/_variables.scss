@@ -81,7 +81,8 @@ $light-palette: (
   on-accent                 : #fff,                     // text on accent backgrounds
   overlay                   : rgba(255, 255, 255, 0.85),
   syntax-text               : #586e75,                  // Solarized base01
-  syntax-comment            : #93a1a1                   // Solarized base1
+  syntax-comment            : #93a1a1,                  // Solarized base1
+  github                    : #171516                   // near-black brand mark
 );
 
 $dark-accent-base           : #5fbfc7;                  // lightened teal, AA on dark bg (~8.9:1)
@@ -105,7 +106,8 @@ $dark-palette: (
   on-accent                 : #0b1416,
   overlay                   : rgba(18, 20, 23, 0.85),
   syntax-text               : #a3b1b3,                  // ~Solarized base0, brightened
-  syntax-comment            : #6c7f86                   // ~Solarized base01
+  syntax-comment            : #6c7f86,                  // ~Solarized base01
+  github                    : #e3e6e8                   // light mark on dark bg
 );
 
 /* themed colours (runtime-switchable) */
@@ -145,7 +147,7 @@ $dribbble-color             : #ea4c89;
 $facebook-color             : #3b5998;
 $flickr-color               : #ff0084;
 $foursquare-color           : #0072b1;
-$github-color               : #171516;
+$github-color               : var(--github);   // themed (see palettes)
 $google-plus-color          : #dd4b39;
 $instagram-color            : #517fa4;
 $lastfm-color               : #d51007;
@@ -223,4 +225,5 @@ $border-radius              : 4px;
 $box-shadow                 : 0 1px 1px rgba(0, 0, 0, 0.125);
 $navicon-width              : 28px;
 $navicon-height             : 4px;
+$theme-toggle-size          : 2.25rem;
 $global-transition          : all 0.2s ease-in-out;

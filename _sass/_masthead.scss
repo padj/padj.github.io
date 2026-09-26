@@ -14,7 +14,8 @@
   &__inner-wrap {
     @include container;
     @include clearfix;
-    padding: 1em 1em 1em;
+    /* right padding keeps the nav clear of the theme toggle */
+    padding: 1em ($theme-toggle-size + 2rem) 1em 1em;
     font-family: $sans-serif-narrow;
 
     @include breakpoint($x-large) {
@@ -32,12 +33,6 @@
 }
 
 .masthead__menu {
-  display: flex;
-  align-items: center;
-
-  nav {
-    flex: 1 1 auto;
-  }
 
   ul {
     margin: 0;
@@ -58,16 +53,20 @@
   }
 }
 
-/* Dark mode toggle */
+/* Dark mode toggle — pinned to the top-right corner of the masthead */
 
 .theme-toggle {
-  display: inline-flex;
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  z-index: 30;
+  display: flex;
   align-items: center;
   justify-content: center;
-  flex: 0 0 auto;
-  width: 2.25rem;
-  height: 2.25rem;
-  margin-left: 0.75rem;
+  width: $theme-toggle-size;
+  height: $theme-toggle-size;
+  margin: 0;
+  margin-top: -($theme-toggle-size / 2);
   padding: 0;
   color: $masthead-link-color;
   background: transparent;
