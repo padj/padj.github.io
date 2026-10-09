@@ -1,7 +1,7 @@
 ---
 title: "What can zombies teach us about public health? - Oxford"
 collection: outreach
-permalink: /outreach/Oxford-IF-zombies
+permalink: /outreach/Oxford-IF-zombies-2025
 excerpt: "Outreach as part of the Oxford Science & Ideas Festival"
 date: 2025-10-31
 venue: "Oxford Science & Ideas Festival"
