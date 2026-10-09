@@ -4,7 +4,7 @@ collection: publications
 permalink: /publication/2025-07-08-AI-NHS-opinion-005
 excerpt: 
 date: 2025-07-08
-venue: 'BMJ'
+venue: 'British Medical Journal'
 paperurl: 'https://doi.org/10.1136/bmj.r1407'
 citation: 
 ---
