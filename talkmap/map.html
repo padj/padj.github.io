@@ -18,7 +18,7 @@
     <body>
 
     	<div id="map"></div>
-    	<span>Mouse over a cluster to see the bounds of its children and click a cluster to zoom to those bounds</span>
+    	<span>Click a cluster to zoom in, then click a conference to see the talks presented there</span>
     	<script type="text/javascript">
     		var tiles = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
               maxZoom: 18,
@@ -30,11 +30,25 @@
     			showCoverageOnHover: false,
     			maxClusterRadius: 80
     			});
-    		for (var i = 0; i < addressPoints.length; i++) {
-    			var a = addressPoints[i];
-    			var title = a[0];
-    			var marker = L.marker(new L.LatLng(a[1], a[2]), { title: title });
-    			marker.bindPopup(title);
+    		function esc(s) {
+    			return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    				return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c];
+    			});
+    		}
+    		// One marker per conference/event; its popup lists every talk given there.
+    		for (var i = 0; i < talkEvents.length; i++) {
+    			var ev = talkEvents[i];
+    			var html = '<strong>' + esc(ev.venue) + '</strong><br>' +
+    				'<small>' + esc(ev.location) + ' &middot; ' + ev.talks.length +
+    				(ev.talks.length === 1 ? ' talk' : ' talks') + '</small><ul style="margin:6px 0 0 16px;padding:0;">';
+    			for (var j = 0; j < ev.talks.length; j++) {
+    				var t = ev.talks[j];
+    				html += '<li style="margin-bottom:4px;"><a href="' + esc(t.url) + '" target="_parent">' + esc(t.title) + '</a>' +
+    					' <small>(' + esc(t.type) + ', ' + esc(t.date) + ')</small></li>';
+    			}
+    			html += '</ul>';
+    			var marker = L.marker(new L.LatLng(ev.lat, ev.lng), { title: ev.venue });
+    			marker.bindPopup(html, { maxWidth: 320, maxHeight: 260 });
     			markers.addLayer(marker);
     		}
     		map.addLayer(markers);
