@@ -16,13 +16,14 @@ Hello! My name is Thomas and I'm a principal operational researcher at [HEOR](ht
 
 I have always been curious as to how things work, why things are the way they are, and how things can be improved. This translated into a passion for building models. I've built models of cities, aeroplanes, fish, birds, and rivers. I've now turned my focus to health, building models to understand disease prevalence, natural history, cost-effectiveness, healthcare resource usage, and more. 
 
-I'm lucky enough to be employed at a company that supports my desire to work across many different areas, enabling me to understand the full drug development pipeline and how my modelling and mathematical skills can be of most use. 
+I'm also the HEOR representative on the [industrial advisory board](https://www.swansea.ac.uk/compsci/industrial-advisory-board/) for the computer science program at Swansea University. 
 
 ## My research interests
-* System dynamics models for understanding system-level disease burden.
-* The use of artificial intelligence in health economics and healthcare.
+* Simulation modelling
+* Population-level and system-level disease burden.
+* Ageing populations and challenges with longevity.
+* The use of AI in health economics and healthcare.
 * Modelling and optimisation of healthcare capacity and delivery.
-* The impact of population ageing and approaches to mitigate this impact.
 
 These themes run through much of my [recent publications](/publications/) and [conference talks](/talks/).
 
@@ -33,5 +34,4 @@ I received my undergraduate degree (MEng) in aerospace and aeronautical engineer
 
 My Phd considered fish behaviour and their responses to fluid stimuli, culminating in several individual- and agent-based models of fish behaviour. My PhD thesis is available to download from the [White Rose eTheses Repository](https://etheses.whiterose.ac.uk/28307/). 
 
-After a short stint in academia, I joined HEOR in May 2021 as a senior data scientist. I was promoted to principal data scientist in September 2022, and in April 2024 I joined the newly formed operational research group. 
-
+After a short stint in academia, I joined HEOR in May 2021 as a senior data scientist. I was promoted to principal data scientist in September 2022, and in April 2024 I joined the newly formed operational research group as a principal. 
