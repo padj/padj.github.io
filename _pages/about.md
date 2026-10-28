@@ -16,7 +16,7 @@ Hello! My name is Thomas and I'm a principal operational researcher at [HEOR](ht
 
 I have always been curious as to how things work, why things are the way they are, and how things can be improved. This translated into a passion for building models. I've built models of cities, aeroplanes, fish, birds, and rivers. I've now turned my focus to health, building models to understand disease prevalence, natural history, cost-effectiveness, healthcare resource usage, and more. 
 
-I'm also the HEOR representative on the [industrial advisory board](https://www.swansea.ac.uk/compsci/industrial-advisory-board/) for the computer science program at Swansea University. 
+I'm also the HEOR representative on the [industrial advisory board](https://www.swansea.ac.uk/compsci/industrial-advisory-board/) for the computer science programme at Swansea University. 
 
 ## My research interests
 * Simulation modelling
