@@ -9,6 +9,10 @@ author_profile: true
   You can also find my articles on <u><a href="{{author.googlescholar}}">my Google Scholar profile</a>.</u>
 {% endif %}
 
+{% if site.data.citations %}
+  Citation counts are from <a href="https://openalex.org/">OpenAlex</a> and refreshed weekly.
+{% endif %}
+
 {% include base_path %}
 
 {% assign pubs = site.publications | sort: 'date' | reverse %}
