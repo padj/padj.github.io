@@ -6,6 +6,7 @@ excerpt:
 date: 2026-10-08
 venue: 'Rare Kidney Disease'
 paperurl: 'https://doi.org/10.1007/s44531-026-00012-4'
+blurb: "Evidence of a non-linear link between proteinuria and kidney survival in IgAN, supporting reductions to very low levels."
 citation: 
 ---
 

@@ -6,6 +6,7 @@ excerpt:
 date: 2025-07-08
 venue: 'British Medical Journal'
 paperurl: 'https://doi.org/10.1136/bmj.r1407'
+blurb: "Opinion piece on the role of AI in the UK government's 10 year plan for the NHS."
 citation: 
 ---
 
