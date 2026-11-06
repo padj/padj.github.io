@@ -1,0 +1,10 @@
+{% comment %}
+  One selected-work card. Params: pub (a publications document), random (optional, marks a
+  candidate for the random slot), hidden (optional).
+{% endcomment %}
+{% assign pub = include.pub %}
+<a class="work-card" href="{{ base_path }}{{ pub.url }}"{% if include.random %} data-random-pick{% endif %}{% if include.hidden %} hidden{% endif %}>
+  <span class="work-card__venue">{{ pub.venue }} · {{ pub.date | date: "%Y" }}</span>
+  <span class="work-card__title">{{ pub.title }}</span>
+  {% if pub.blurb %}<span class="work-card__blurb">{{ pub.blurb }}</span>{% endif %}
+</a>

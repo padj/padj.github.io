@@ -62,6 +62,10 @@
     transform: translateY(-2px);
   }
 
+  &[hidden] {
+    display: none; /* display: block above would otherwise override the hidden attribute */
+  }
+
   &__venue {
     display: block;
     font-family: $monospace;

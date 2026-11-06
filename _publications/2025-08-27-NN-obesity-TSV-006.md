@@ -6,6 +6,7 @@ excerpt:
 date: 2025-08-27
 venue: 'Journal of Medical Economics'
 paperurl: 'https://doi.org/10.1080/13696998.2025.2554518'
+blurb: "A population-level system dynamics model forecasting US obesity prevalence and cost to 2060."
 citation: 
 ---
 
