@@ -6,6 +6,7 @@ excerpt:
 date: 2026-01-19
 venue: 'PharmacoEconomics'
 paperurl: 'https://doi.org/10.1007/s40273-025-01580-2'
+blurb: "Trial-based risk equations for secondary cardiovascular events in overweight/obesity without diabetes."
 citation: 
 ---
 

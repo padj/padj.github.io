@@ -1,16 +1,53 @@
 {% include base_path %}
 
-{% if site.data.selected %}
+{% comment %}
+  Selected work on the homepage, chosen automatically from _publications:
+    1. the most recent publication;
+    2. the most cited (OpenAlex counts in _data/citations.json; ties go to the more recent);
+    3. a random pick from the rest, re-drawn on each page load.
+  Slots 2 and 3 skip any publication with `selected_exclude: true` in its front matter.
+  An optional `blurb:` in a publication's front matter is shown under the title.
+{% endcomment %}
+
+{% assign pubs = site.publications | sort: 'date' | reverse %}
+{% assign latest = pubs | first %}
+
+{% assign top = nil %}
+{% assign top_count = -1 %}
+{% for p in pubs %}
+  {% if p.url == latest.url or p.selected_exclude %}{% continue %}{% endif %}
+  {% assign key = p.path | split: '/' | last | remove: '.md' %}
+  {% assign count = site.data.citations.works[key].cited_by | default: 0 %}
+  {% if count > top_count %}
+    {% assign top = p %}
+    {% assign top_count = count %}
+  {% endif %}
+{% endfor %}
+
+{% assign pool = pubs | where_exp: "p", "p.selected_exclude != true" | where_exp: "p", "p.url != latest.url" | where_exp: "p", "p.url != top.url" %}
+{% assign fallback = pool | sample %}
+
+{% if latest %}
 <section class="selected-work">
   <h2 class="selected-work__heading">Selected work</h2>
   <div class="selected-work__grid">
-    {% for item in site.data.selected %}
-      <a class="work-card" href="{{ base_path }}{{ item.url }}">
-        <span class="work-card__venue">{{ item.venue }}</span>
-        <span class="work-card__title">{{ item.title }}</span>
-        <span class="work-card__blurb">{{ item.blurb }}</span>
-      </a>
+    {% include selected-work-card.html pub=latest %}
+    {% if top %}{% include selected-work-card.html pub=top %}{% endif %}
+    {% for p in pool %}
+      {% if p.url == fallback.url %}
+        {% include selected-work-card.html pub=p random="1" %}
+      {% else %}
+        {% include selected-work-card.html pub=p random="1" hidden="1" %}
+      {% endif %}
     {% endfor %}
   </div>
+  <script>
+    (function () {
+      var cards = document.querySelectorAll('.selected-work [data-random-pick]');
+      if (cards.length < 2) return;
+      var pick = Math.floor(Math.random() * cards.length);
+      for (var i = 0; i < cards.length; i++) cards[i].hidden = (i !== pick);
+    })();
+  </script>
 </section>
 {% endif %}
