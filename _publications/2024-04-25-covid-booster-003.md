@@ -6,6 +6,7 @@ excerpt:
 date: 2024-04-25
 venue: 'Infectious Diseases and Therapy'
 paperurl: 'https://link.springer.com/article/10.1007/s40121-024-00965-8'
+blurb: "An age-, immunity- and risk-stratified SEIR model of the UK's 2022/23 COVID-19 booster campaigns and alternative strategies."
 citation: 
 ---
 
